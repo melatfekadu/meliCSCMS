@@ -4,11 +4,7 @@
     fluid
     tag="section"
   >
-<<<<<<< HEAD
  
-=======
-  
->>>>>>> a4a176578f47248fc02520958b30202103e25995
     <v-row justify="center">
       
       <v-col
@@ -61,7 +57,7 @@
                 </v-col>
                   <v-select
                       v-model="type"
-                      :items="['Customer service', 'Operational mentenance', 'manager']"
+                      :items="['CustomerService', 'OperationMaintenance', 'Manager']"
                       label="Department"
                     >
                       <template v-slot:item="{ item, attrs, on }">
@@ -93,7 +89,7 @@
                   >
                     upload file
                   </v-btn>
-                </v-col> --> -->
+                </v-col> -->
 
                 <v-col
                   cols="12"
@@ -119,11 +115,6 @@
 <script>
 import axios from "axios";
 export default {
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> a4a176578f47248fc02520958b30202103e25995
   data() {
     return {
       drawer: false,

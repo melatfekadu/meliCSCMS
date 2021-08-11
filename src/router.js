@@ -9,8 +9,19 @@ export default new Router({
   routes: [
     {
       path:'/',
-      name:'home',
       component: () => import('@/views/Home'),
+      children:[
+        {
+          name: 'home',
+          path:'/',
+          component: () => import('@/views/Home'),
+        },
+        {
+          name: 'Login',
+          path:'/Login',
+          component: () => import('@/views/home/Login'),
+        },
+      ]
 
     },
     {
@@ -76,11 +87,11 @@ export default new Router({
           path: 'pages/user',
           component: () => import('@/views/dashboard/pages/UserProfile'),
         },
-        {
-          name: 'Login',
-          path: '/Login',
-          component: () => import('@/views/login/Login'),
-        },
+        // {
+        //   name: 'Login',
+        //   path: '/Login',
+        //   component: () => import('@/views/login/Login'),
+        // },
         {
           name: 'Notifications',
           path: 'components/notifications',
@@ -131,7 +142,7 @@ export default new Router({
         },
         {
           name: 'Warning',
-          path: '/Warning',
+          path: '/Warning',  
           component: () => import('@/views/manager/Warning'),
         },
       ]
@@ -170,16 +181,69 @@ export default new Router({
         path: '/',
       component: () => import('@/views/Operation_Maintenance/Operation_Maintenance'),
         },
-        {
-        name: 'Emergency',
-        path: '/Emergency',
-      component: () => import('@/views/case_worker/emergency/Emergency'),
-      },
+        
       {
         name: 'Warnings',
         path: '/warning/Warnings',
       component: () => import('@/views/case_worker/warning/Warnings'),
       },
+      ]
+    },
+    {
+      name: 'CaseWorker',
+      path: '/CaseWorker',
+      component: () => import('@/views/case_worker/Index'),
+      children:[
+        {
+        name: 'CaseWorker',
+        path: '/',
+      component: () => import('@/views/case_worker/CaseWorker'),
+        },
+        {
+          name: 'Billing',
+          path: '/Billing',
+        component: () => import('@/views/case_worker/billing/Billing'),
+        },
+        {
+          name: 'ComplaintOnEmployee',
+          path: '/ComplaintOnEmployee',
+        component: () => import('@/views/case_worker/complaint_on_employee/ComplaintOnEmployee'),
+          },
+        {
+          name: 'Design',
+          path: '/Design',
+        component: () => import('@/views/case_worker/design/Design'),
+          },
+        {
+          name: 'Inspection',
+          path: '/Inspection',
+        component: () => import('@/views/case_worker/inspection/Inspection'),
+          },
+          {
+            name: 'NewConnection',
+            path: '/NewConnection',
+          component: () => import('@/views/case_worker/new_connection/NewConnection'),
+            },
+            {
+              name: 'Prevative',
+              path: '/Prevative',
+            component: () => import('@/views/case_worker/prevative/Prevative'),
+              },
+              {
+                name: 'Reload',
+                path: '/Reload',
+              component: () => import('@/views/case_worker/reload/Reload'),
+                },
+              {
+                name: 'Relocation',
+                path: '/Relocation',
+              component: () => import('@/views/case_worker/relocation/Relocation'),
+                },
+              {
+                name: 'Emergency',
+                path: '/Emergency',
+              component: () => import('@/views/case_worker/emergency/Emergency'),
+              },
       ]
     },
     

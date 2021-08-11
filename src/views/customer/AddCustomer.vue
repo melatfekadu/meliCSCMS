@@ -127,11 +127,7 @@
 <script>
 import axios from "axios";
 export default {
-<<<<<<< HEAD
  
-=======
-  
->>>>>>> a4a176578f47248fc02520958b30202103e25995
     data() {
     return {
       drawer: false,

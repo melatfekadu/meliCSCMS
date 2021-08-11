@@ -30,7 +30,7 @@
           </template>
 
           <v-tabs-items v-model="tabs" class="transparent">
-            <v-list v-for="(complaint, index) in manager" :key="index">
+            <v-list v-for="(complaint, index) in Manager" :key="index">
               <v-list-item>
                 <v-col cols="1">
                   <v-list-item-action>
@@ -82,8 +82,8 @@ export default {
     };
   },
   computed:{
-    manager(){
-    return this.complaints.filter(comp=>comp.type=="manager")
+    Manager(){
+    return this.complaints.filter(comp=>comp.type=="Manager")
    }
   },
   mounted() {

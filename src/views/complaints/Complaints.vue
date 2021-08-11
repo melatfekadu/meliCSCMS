@@ -17,7 +17,7 @@
         <v-list-item>
           <v-select
             v-model="select"
-            :items="['Customer service', 'Operational mentenance', 'Manager', 'Emergency']"
+            :items="['CustomerService', 'OperationMentenance', 'Manager']"
             label="Department"
           >
             <template v-slot:item="{ item, attrs, on }">
@@ -66,10 +66,10 @@ export default {
     async update(){
 
         let types = {
-            "Operational mentenance": "technician",
-            'Customer service': "customer",
-            'Manager': "manager",
-            'Emergency': "emergency"
+            "OperationalMentenance": "OperationMaintenance",
+            'CustomerService': "CustomerService",
+            'Manager': "Manager",
+            
         };
         
         this.complaints.type = types[this.select];
