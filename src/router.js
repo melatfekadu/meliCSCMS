@@ -9,9 +9,15 @@ export default new Router({
   routes: [
     {
       path:'/',
-      name:'home',
       component: () => import('@/views/Home'),
-
+      children: [
+        {
+          path:'/',
+          name:'Home',
+          component:()=>import('@/views/Home'),
+        },
+        
+      ]
     },
     {
       path: '/admin',
@@ -182,6 +188,20 @@ export default new Router({
       },
       ]
     },
-    
+    {
+      path:'/noncustomer',
+      name:'Noncustomer',
+      component: () => import('@/views/Noncustomer/Index.vue'),
+      children:[
+        {
+          name: 'nonCusomter',
+          path: '/',
+          component: () => import('@/views/Noncustomer/Noncustomer.vue'),
+
+        // component: () => import('@/views/Operation_Maintenance/N'),
+          },
+      ]
+
+    }, 
   ],
 })
