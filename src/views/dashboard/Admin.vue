@@ -1,9 +1,6 @@
 <template>
   <v-container id="dashboard" fluid tag="section">
-    <!-- <AdminDrawer />
-    <AdminAppBar />
-    <AdminView />
-    <AdminSettings /> -->
+    
     <v-row>
       <v-col cols="12" md="11">
         <base-material-card class="px-5 py-3">
@@ -73,12 +70,7 @@
 import axios from "axios";
 export default {
   name: "Admin",
-  // components: {
-  //     AdminAppBar: () => import('./components/core/AppBar'),
-  //     AdminDrawer: () => import('./components/core/Drawer'),
-  //     AdminSettings: () => import('./components/core/Settings'),
-  //     AdminView: () => import('./components/core/View'),
-  //   },
+ 
     data() {
     return {
       customers: [],

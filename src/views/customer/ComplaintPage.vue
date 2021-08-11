@@ -4,10 +4,7 @@
     fluid
     tag="section"
   >
-  <!-- <ComplaintPageDrawer />
-  <ComplaintPageSettings />
-  <ComplaintPageAppBar />
-  <ComplaintPageView /> -->
+ 
     <v-row justify="center">
       
       <v-col
@@ -58,6 +55,17 @@
                     type="date"
                   />
                 </v-col>
+                  <v-select
+                      v-model="type"
+                      :items="['Customer service', 'Operational mentenance', 'manager']"
+                      label="Department"
+                    >
+                      <template v-slot:item="{ item, attrs, on }">
+                        <v-list-item v-bind="attrs" v-on="on">
+                          <v-list-item-title :id="attrs['aria-labelledby']" v-text="item"></v-list-item-title>
+                        </v-list-item>
+                      </template>
+                    </v-select>
 
                 <v-col 
                 cols="50"
@@ -71,7 +79,7 @@
                   />
                 </v-col>
                 
-                <v-col
+                <!-- <v-col
                   cols="12"
                   class="text-left"
               >
@@ -81,7 +89,7 @@
                   >
                     upload file
                   </v-btn>
-                </v-col>
+                </v-col> --> -->
 
                 <v-col
                   cols="12"
@@ -107,12 +115,6 @@
 <script>
 import axios from "axios";
 export default {
-  // components: {
-  //     ComplaintPageAppBar: () => import('./components/core/AppBar'),
-  //     ComplaintPageDrawer: () => import('./components/core/Drawer'),
-  //     ComplaintPageSettings: () => import('./components/core/Settings'),
-  //     ComplaintPageView: () => import('./components/core/View'),
-  //   },
 
   data() {
     return {
@@ -135,6 +137,7 @@ export default {
       // ],
       address: "",
       date:"",
+      type:"",
       description: "",
      
     };
@@ -147,6 +150,7 @@ export default {
         phone_no: this.phone_no,
         address: this.address,
         date: this.date,
+        type: this.type,
         description: this.description,
        
       };
