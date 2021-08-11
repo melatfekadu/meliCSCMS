@@ -130,12 +130,7 @@
 <script>
 import axios from "axios";
 export default {
-  // components: {
-  //     AddCustomerAppBar: () => import('./components/core/AppBar'),
-  //     AddCustomerDrawer: () => import('./components/core/Drawer'),
-  //     AddCustomerSettings: () => import('./components/core/Settings'),
-  //     AddCustomerView: () => import('./components/core/View'),
-  //   },
+  
     data() {
     return {
       drawer: false,
@@ -196,16 +191,7 @@ export default {
       // console.log("newCustomer", newCustomer);
       axios
         .post("http://localhost:3000/customers", newCustomer)
-        //       return axios({
-        //         method: 'post',
-        //           data: {
-
-        //       },
-        //    url: 'http://localhost:3000/customers',
-        //     headers: {
-        //        'main-Type': 'application/json',
-        //       },
-        //     })
+        
         .then(() => {
           this.$swal(
             'Great!',
@@ -216,7 +202,7 @@ export default {
             res.render('/')
           })
         .t
-          // this.$router.push({ path: "/" });
+         
           this.$refs.form.reset();
         })
         .catch((err) => {

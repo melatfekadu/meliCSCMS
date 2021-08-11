@@ -1,9 +1,10 @@
 <template>
-  <v-container id="user-profile" fluid tag="section">
-    <!-- <EditCustomerDrawer />
-  <EditCustomerAppBar />
-  <EditCustomerSettings />
-  <EditCustomerView /> -->
+  <v-container
+    id="user-profile"
+    fluid
+    tag="section"
+  >
+  
     <v-row justify="center">
       <v-col cols="12" md="8">
         <base-material-card>
@@ -94,9 +95,9 @@
 <script>
 import axios from "axios";
 export default {
-  data() {
-    return {
-      first_name: "",
+  
+    data(){
+        return{
 
       last_name: "",
 
