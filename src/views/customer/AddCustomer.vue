@@ -127,7 +127,11 @@
 <script>
 import axios from "axios";
 export default {
+<<<<<<< HEAD
  
+=======
+  
+>>>>>>> a4a176578f47248fc02520958b30202103e25995
     data() {
     return {
       drawer: false,
@@ -188,16 +192,7 @@ export default {
       // console.log("newCustomer", newCustomer);
       axios
         .post("http://localhost:3000/customers", newCustomer)
-        //       return axios({
-        //         method: 'post',
-        //           data: {
-
-        //       },
-        //    url: 'http://localhost:3000/customers',
-        //     headers: {
-        //        'main-Type': 'application/json',
-        //       },
-        //     })
+        
         .then(() => {
           this.$swal(
             'Great!',
@@ -208,7 +203,7 @@ export default {
             res.render('/')
           })
         .t
-          // this.$router.push({ path: "/" });
+         
           this.$refs.form.reset();
         })
         .catch((err) => {

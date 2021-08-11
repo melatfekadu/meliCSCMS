@@ -4,7 +4,7 @@
     <dashboard-core-app-bar />
     <dashboard-core-drawer />
 
-    <!-- <dashboard-core-view /> -->
+    
       <v-content>
         <router-view />
       </v-content>

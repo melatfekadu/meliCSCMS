@@ -25,23 +25,7 @@
       nav
     >
       <v-list-item>
-        <v-list-item-avatar
-          class="align-self-center"
-          color="white"
-          contain
-        >
-          <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-            max-height="30"
-          />
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title
-            class="text-h4"
-            v-text="profile.title"
-          />
-        </v-list-item-content>
+        <div class="v-list-item__title text-h4">CSCMS</div>
       </v-list-item>
     </v-list>
 
@@ -51,8 +35,7 @@
       expand
       nav
     >
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
+     
       <div />
 
       <template v-for="(item, i) in computedItems">
@@ -71,8 +54,7 @@
         />
       </template>
 
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
+     
       <div />
     </v-list>
   </v-navigation-drawer>
@@ -96,16 +78,7 @@
 
     data: () => ({
       items: [
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'hhhhhh',
-          to: '/jhkljhgfgg',
-        },
-        {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '#',
-        },
+       
         {
           title: 'Send Report',
           icon: 'mdi-clipboard-outline',
