@@ -5,16 +5,7 @@
     <AdminView />
     <AdminSettings /> -->
     <v-row>
-      <v-col cols="12" md="11">
-        <base-material-card class="px-5 py-3">
-          <template v-slot:heading>
-            <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
-              <v-tab class="mr-3">about</v-tab>
-              <v-tab>admin</v-tab>
-            </v-tabs>
-          </template>
-        </base-material-card>
-      </v-col>
+      
       <div class="text-h4 font-weight-light">
         Add Customers
         <router-link to="/AddCustomer">
@@ -31,7 +22,7 @@
           <v-card-text>
             <!-- :headers="headers" -->
             <v-data-table :items="customers" :headers="customer_headers">
-              <template v-slot:item.actions="{ item }">
+              <template v-slot:item.actions="{ item }"> 
                <router-link :to="'edit-customer/'+item._id">
                  <v-icon small class="mr-2" >mdi-pencil</v-icon>
                  </router-link> 
@@ -56,7 +47,7 @@
           </template>
           <v-card-text>
             <v-data-table :headers="employee_headers" :items="employees">
-              <template v-slot:item.actions="{ item }">
+              --<template v-slot:item.actions="{ item }"> 
                 <router-link :to="'UpdateEmployee/'+item._id">
                 <v-icon small class="mr-2">mdi-pencil</v-icon>
                 </router-link>
@@ -73,12 +64,7 @@
 import axios from "axios";
 export default {
   name: "Admin",
-  // components: {
-  //     AdminAppBar: () => import('./components/core/AppBar'),
-  //     AdminDrawer: () => import('./components/core/Drawer'),
-  //     AdminSettings: () => import('./components/core/Settings'),
-  //     AdminView: () => import('./components/core/View'),
-  //   },
+ 
     data() {
     return {
       customers: [],

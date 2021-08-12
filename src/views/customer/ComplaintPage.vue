@@ -4,10 +4,7 @@
     fluid
     tag="section"
   >
-  <!-- <ComplaintPageDrawer />
-  <ComplaintPageSettings />
-  <ComplaintPageAppBar />
-  <ComplaintPageView /> -->
+  
     <v-row justify="center">
       
       <v-col
@@ -107,13 +104,7 @@
 <script>
 import axios from "axios";
 export default {
-  // components: {
-  //     ComplaintPageAppBar: () => import('./components/core/AppBar'),
-  //     ComplaintPageDrawer: () => import('./components/core/Drawer'),
-  //     ComplaintPageSettings: () => import('./components/core/Settings'),
-  //     ComplaintPageView: () => import('./components/core/View'),
-  //   },
-
+  
   data() {
     return {
       drawer: false,

@@ -9,9 +9,7 @@
               <v-tab class="mr-3">
                 complaints
               </v-tab>
-              <v-tab class="mr-3">
-                Status
-              </v-tab>
+              
 
              
             </v-tabs>
