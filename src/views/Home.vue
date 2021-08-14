@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <template>
   <v-content>
     <v-toolbar flat>
@@ -60,4 +58,3 @@ export default {
   }
 };
 </script>
->>>>>>> 708318e79b8cce1cfe3a02342f32d4c995d03e7b

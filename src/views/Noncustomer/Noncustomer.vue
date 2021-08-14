@@ -18,14 +18,14 @@
       </div>
 
       <v-text-field
-        v-model="Fname"
+        v-model="first_name"
         :counter="10"
-        :rules="FnameRules"
+        :rules="LnameRules"
         label=" First Name"
         required
       ></v-text-field>
       <v-text-field
-        v-model="Lname"
+        v-model="last_name"
         :counter="10"
         :rules="LnameRules"
         label=" Last Name"
@@ -39,9 +39,14 @@
         required
       ></v-text-field>
       <v-text-field
-        v-model="phoneNumber"
+        v-model="phone_no"
         :rules="phoneNumberRules"
         label="Phone number"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="location"
+        label="Location"
         required
       ></v-text-field>
 
@@ -53,12 +58,13 @@
         required
       ></v-select>
       <v-textarea
+        v-model="description"
         clearable
         clear-icon="mdi-close-circle"
         value="Please fill your report here"
       ></v-textarea>
 
-      <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
+      <v-btn :disabled="!valid" color="success" class="mr-4" @click="send">
         Send
       </v-btn>
     </v-form>
@@ -69,13 +75,6 @@
 export default {
   name: "Noncustomer",
   data: () => ({
-    components: {
-      DashboardCoreAppBar: () => import("./components/core/AppBar"),
-
-      DashboardCoreSettings: () => import("./components/core/Settings"),
-      DashboardCoreView: () => import("./components/core/View"),
-      DashboardCoreFooter: () => import("./components/core/Footer")
-    },
 
     // valid: true,
     Fname: "",
@@ -96,14 +95,45 @@ export default {
         v => /^\d+$/.test(v) || "This field only accept numbers"
       ]
     ],
+    location:"",
     select: null,
-    items: ["Fire", "Fall down", "Accident", "Rain"]
+    items: ["Fire", "Fall down", "Accident", "Rain"],
+    description:"",
   }),
 
   methods: {
     validate() {
       this.$refs.form.validate();
-    }
+    },
+      send() {
+      // if (this.$refs.form.validate()) {
+      let newEmergency ={
+        first_name: this.first_name,
+        last_name: this.last_name,
+        email: this.email,
+        phone_no: this.phone_no,
+        location: this.location,
+        select: this.select,
+        description: this.description,
+      };
+
+      axios
+        .post("http://localhost:3000/emergency_reports", newEmergency)
+
+        .then(() => {
+          this.$router.push({ path: "/" });
+          this.$refs.form.reset();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      //} // VALIDATION END
+      return true;
+    
+  
+
+      }
+    },
   }
-};
+
 </script>

@@ -10,30 +10,23 @@ export default new Router({
     {
       path:'/',
       component: () => import('@/views/Home'),
-<<<<<<< HEAD
       children:[
         {
           name: 'home',
           path:'/',
           component: () => import('@/views/Home'),
         },
-        {
-          name: 'Login',
-          path:'/Login',
-          component: () => import('@/views/home/Login'),
-        },
-      ]
-
-=======
-      children: [
-        {
-          path:'/',
-          name:'Home',
-          component:()=>import('@/views/Home'),
-        },
         
       ]
->>>>>>> 708318e79b8cce1cfe3a02342f32d4c995d03e7b
+
+      // children: [
+      //   {
+      //     path:'/',
+      //     name:'Home',
+      //     component:()=>import('@/views/Home'),
+      //   },
+        
+      // ]
     },
     {
       path: '/admin',
@@ -201,7 +194,6 @@ export default new Router({
       ]
     },
     {
-<<<<<<< HEAD
       name: 'CaseWorker',
       path: '/CaseWorker',
       component: () => import('@/views/case_worker/Index'),
@@ -256,24 +248,27 @@ export default new Router({
                 path: '/Emergency',
               component: () => import('@/views/case_worker/emergency/Emergency'),
               },
-      ]
-    },
-    
-=======
-      path:'/noncustomer',
-      name:'Noncustomer',
-      component: () => import('@/views/Noncustomer/Index.vue'),
-      children:[
-        {
-          name: 'nonCusomter',
-          path: '/',
-          component: () => import('@/views/Noncustomer/Noncustomer.vue'),
-
-        // component: () => import('@/views/Operation_Maintenance/N'),
+            ]
           },
-      ]
+          {
+          path:'/Noncustomer',
+          name:'Noncustomer',
+          component: () => import('@/views/Noncustomer/Index.vue'),
+          children:[
+            {
+              name: 'nonCusomter',
+              path: '/',
+              component: () => import('@/views/Noncustomer/Noncustomer.vue'),
 
+            // component: () => import('@/views/Operation_Maintenance/N'),
+              },
+      ]
+    
     }, 
->>>>>>> 708318e79b8cce1cfe3a02342f32d4c995d03e7b
+    {
+      name: 'Login',
+      path:'/Login',
+      component: () => import('@/views/login/Login'),
+    },
   ],
 })
