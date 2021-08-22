@@ -96,11 +96,7 @@
           title: 'AddEmployee',
           to: '/AddEmployee',
         },
-        {
-          title: 'rtables',
-          icon: 'mdi-clipboard-outline',
-          to: '#',
-        },
+       
         {
           title: 'notifications',
           icon: 'mdi-bell',

@@ -9,7 +9,7 @@
       <dashboard-core-footer />
   </v-content>
 
-    <dashboard-core-settings />
+    
   </v-app>
 </template>
 
@@ -18,11 +18,11 @@
     name: 'AssistanceIndex',
 
     components: {
-      DashboardCoreAppBar: () => import('./components/core/AppBar'),
-      DashboardCoreDrawer: () => import('./components/core/Drawer'),
-      DashboardCoreSettings: () => import('./components/core/Settings'),
-      DashboardCoreView: () => import('./components/core/View'),
-      DashboardCoreFooter: () => import('./components/core/Footer'),
+      DashboardCoreAppBar: () => import('../customer/components/core/AppBar'),
+      DashboardCoreDrawer: () => import('../customer/components/core/Drawer'),
+      DashboardCoreSettings: () => import('../customer/components/core/Settings'),
+      DashboardCoreView: () => import('../customer/components/core/View'),
+      DashboardCoreFooter: () => import('../customer/components/core/Footer'),
     },
 
     data: () => ({

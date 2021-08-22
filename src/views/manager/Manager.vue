@@ -1,11 +1,7 @@
 <template>
   <v-container id="assistance" fluid tag="section">
     
-        <!-- <dashboard-core-drawer /> -->
-        <!-- <ManagerialDrawer />
-        <ManagerView />
-        <ManagerAppBar />
-        <ManagerSettings /> -->
+        
     <v-row>
       <v-col cols="12" md="11">
         <base-material-card class="px-5 py-3">
@@ -17,10 +13,10 @@
               <v-tab class="mr-3" to="Warning">
                 Warning
               </v-tab>
-              <v-tab class="mr-3">
-             On Going Complaint
+              <v-tab class="mr-3" to="/ongoing">
+                 On Going Complaint
               </v-tab>
-              <v-tab class="mr-3">
+              <v-tab class="mr-3" to="/completed">
                 Completed
               </v-tab>
               <v-tab class="mr-3">
@@ -65,12 +61,7 @@
 import axios from "axios";
 export default {
   name: "DashboardDashboard",
-  // components: {
-  //     ManagerAppBar: () => import('./components/core/AppBar'),
-  //     ManagereDrawer: () => import('./components/core/Drawer'),
-  //     ManagerSettings: () => import('./components/core/Settings'),
-  //     ManagerView: () => import('./components/core/View'),
-  //   },
+  
   data() {
     return {
       complaints: [],

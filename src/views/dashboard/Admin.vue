@@ -44,7 +44,7 @@
           </template>
           <v-card-text>
             <v-data-table :headers="employee_headers" :items="employees">
-              --<template v-slot:item.actions="{ item }"> 
+              <template v-slot:item.actions="{ item }"> 
                 <router-link :to="'UpdateEmployee/'+item._id">
                 <v-icon small class="mr-2">mdi-pencil</v-icon>
                 </router-link>

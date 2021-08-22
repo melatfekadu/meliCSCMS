@@ -4,20 +4,21 @@
       <v-list style="background: transparent; padding: 10px 40px;">
         <v-list-item>
           <div>
-              <h2  style="font-family: sans-serif; font-size: 20px; font-weight: lighter; margin-bottom: 0;" class="headline">{{ complaints.user_name }}</h2>
+              <h2 style="font-family: sans-serif; font-size: 20px; font-weight: lighter; margin-bottom: 0;" class="headline">{{ emergencys.first_name }}</h2>
               <small style="font-family: sans-serif;">
-                Date: {{ complaints.date }} Address: {{ complaints.address }}
+                PhoneNo: {{ emergencys.phone_no }} Address: {{ emergencys.location }}
               </small>
           </div>
         </v-list-item>
         <v-list-item>
-          <v-card-text>{{ complaints.description }}</v-card-text>
+          <v-card-text>{{ emergencys.description }}</v-card-text>
         </v-list-item>
         <v-col cols="4">
         <v-list-item>
           <v-select
             v-model="select"
-            :items="['CustomerService', 'OperationMaintenance', 'Manager']"
+            
+            :items="['New Connection', 'Reload', 'Billing', 'Emergency','Complaint On Employee', 'Prevative Maintenance', 'Relocation','Inspection', 'Design']"
             label="Department"
           >
             <template v-slot:item="{ item, attrs, on }">
@@ -32,49 +33,55 @@
         </v-list-item>
       </v-col>
       </v-list>
-    
     </v-flex>
   </v-layout>
 </template>
 <script>
 import axios from "axios";
 export default {
-  name: "complaints",
+  name: "subComplaint",
   
   data() {
     return {
-      complaints: [],
+      emergencys: [],
       select:"",
       
     };
   },
   mounted() {
-    this.fetchComplaints();
+    this.fetchEmergencys();
   },
   methods: {
-    async fetchComplaints() {
+    async fetchEmergencys() {
       return axios({
         method: "get",
-        url: "http://localhost:3000/complaints/" + this.$route.params.id
+        url: "http://localhost:3000/emergencys/" + this.$route.params.id
       })
         .then(response => {
-          this.complaints = response.data;
-          console.res(this.complaints);
+          this.emergencys = response.data;
+          console.res(this.emergencys);
         })
         .catch(() => {});
     },
     async update(){
 
         let types = {
-            "OperationalMentenance": "OperationMaintenance",
-            'CustomerService': "CustomerService",
-            'Manager': "Manager",
+            "New Connection": "newconnection",
+            'Reload': "reload",
+            'Billing': "billing",
+            'Emergency': "emergency",
+            'Complaint On Employee': "employee",
+            'Prevative Maintenance':"prevative",
+            'Relocation':"relocation",
+            'Inspection':"inspection",
+            'Design':"design",
+            
             
         };
         
-        this.complaints.type = types[this.select];
+        this.emergencys.EmergencyReport = types[this.select];
 
-        axios.put("http://localhost:3000/complaints/" + this.complaints._id, this.complaints).then((response) => {
+        axios.put("http://localhost:3000/emergencys/" + this.complaints._id, this.complaints).then((response) => {
             console.log("success");
         });
         // .then(response => {

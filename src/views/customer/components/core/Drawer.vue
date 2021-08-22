@@ -85,15 +85,16 @@
           title: 'Register Complaint',
           to: '/customer',
         },
-        {
-          icon: 'mdi-account',
-          title: 'Profile',
-          to: '/customer-profile',
-        },
+     
          {
           icon: 'mdi-account',
           title: 'View Bill',
-          to: '/customer-profile',
+          to: '/bills',
+        },
+        {
+          icon: 'mdi-account',
+          title: 'Status',
+          to: '/status',
         },
     
         {

@@ -40,7 +40,7 @@
                   </v-col>
                   <v-col cols="12">
                     {{smallPart(complaint.description)}}
-                    <router-link :to="'Complaints/'+complaint._id">read more</router-link>
+                    <router-link :to="'subComplaint/'+complaint._id">read more</router-link>
                   </v-col>
                   <v-col cols="12">Date: {{complaint.date}}</v-col>
                 </v-col>
@@ -88,6 +88,7 @@ export default {
         .then(response => {
           this.complaints = response.data;
           console.log(this.complaints);
+          console.log("success")
         })
         .catch(error => {
           console.error(error);

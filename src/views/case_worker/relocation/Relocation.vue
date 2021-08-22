@@ -11,9 +11,7 @@
               <v-tab class="mr-3" to="warning/Warnings">
                 Warning
               </v-tab>
-              <v-tab class="mr-3">
-                Status
-              </v-tab>
+              
               <v-tab class="mr-3">
                 Ratings
               </v-tab>
@@ -21,7 +19,7 @@
           </template>
 
           <v-tabs-items v-model="tabs" class="transparent">
-            <v-list v-for="(complaint, index) in Emergency" :key="index">
+            <v-list v-for="(complaint, index) in Relocation" :key="index">
               <v-list-item>
                 <v-col cols="1">
                   <v-list-item-action>
@@ -68,7 +66,7 @@ export default {
   },
   computed:{
     Relocation(){
-    return this.complaints.filter(comp=>comp.subComplaint=="Relocation")
+    return this.complaints.filter(comp=>comp.subComplaint=="relocation")
    }
   },
   mounted() {

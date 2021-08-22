@@ -14,22 +14,11 @@
           <v-card-text>{{ complaints.description }}</v-card-text>
         </v-list-item>
         <v-col cols="4">
-        <v-list-item>
-          <v-select
-            v-model="select"
-            :items="['CustomerService', 'OperationMaintenance', 'Manager']"
-            label="Department"
-          >
-            <template v-slot:item="{ item, attrs, on }">
-              <v-list-item v-bind="attrs" v-on="on">
-                <v-list-item-title :id="attrs['aria-labelledby']" v-text="item"></v-list-item-title>
-              </v-list-item>
-            </template>
-          </v-select>
+        
           <v-btn  class="mx-2" fab dark color="indigo" @click="update">
             Update
           </v-btn>
-        </v-list-item>
+       
       </v-col>
       </v-list>
     

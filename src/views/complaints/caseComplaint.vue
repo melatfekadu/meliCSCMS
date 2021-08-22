@@ -15,27 +15,32 @@
         </v-list-item>
         <v-col cols="4">
         <v-list-item>
-          <v-select
-            v-model="select"
-            :items="['New Connection', 'Reload', 'Billing', 'Emergency','Complaint On Employee']"
-            label="Department"
-          >
-            <template v-slot:item="{ item, attrs, on }">
-              <v-list-item v-bind="attrs" v-on="on">
-                <v-list-item-title :id="attrs['aria-labelledby']" v-text="item"></v-list-item-title>
-              </v-list-item>
-            </template>
-          </v-select>
-          <v-btn  class="mx-2" fab dark color="indigo" @click="update">
-            Update
-          </v-btn>
-          <v-btn
-            color="success"
-            class="mr-0"
-            @click="register" :disabled="!valid"
-            >
-            Register
-            </v-btn>
+          
+          
+          <v-col
+                  cols="6"
+                  class="text-right"
+                >
+                  <v-btn
+                    color="warning"
+                    class="mr-12"
+                    @click="accept()" :disabled="valid"
+                  >
+                    Accept
+                  </v-btn>
+                </v-col>
+               <v-col
+                  cols="12"
+                  class="text-right"
+                >
+                  <v-btn
+                    color="success"
+                    class="mr-12"
+                    @click="completed" :disabled="valid"
+                  >
+                    Completed
+                  </v-btn>
+                </v-col>
         </v-list-item>
       </v-col>
       </v-list>
@@ -70,19 +75,21 @@ export default {
         })
         .catch(() => {});
     },
-    async update(){
-
-        let types = {
-            "New Connection": "newconnection",
-            'Reload': "reload",
-            'Billing': "billing",
-            'Emergency': "emergency",
-            'Complaint On Employee': "employee"
-            
-        };
-        
-        this.complaints.caseComplaint = types[this.select];
-
+    async accept(){
+      let data = this.complaints;
+      data['status']='accept'
+      
+        axios.put("http://localhost:3000/complaints/" + this.complaints._id, this.complaints).then((response) => {
+            console.log("success");
+        });
+        // .then(response => {
+        //   this.complaints = response.data;
+        //   console.res(this.complaints);
+        // });
+    },
+    async completed(){
+      let data = this.complaints;
+      data['status']='completed'
         axios.put("http://localhost:3000/complaints/" + this.complaints._id, this.complaints).then((response) => {
             console.log("success");
         });

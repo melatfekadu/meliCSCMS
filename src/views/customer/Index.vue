@@ -9,7 +9,7 @@
         <router-view />
       </v-content>
     <dashboard-core-footer />
-    <dashboard-core-settings />
+    
   </v-app>
 </template>
 

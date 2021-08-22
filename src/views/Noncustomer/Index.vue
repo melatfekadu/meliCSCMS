@@ -2,15 +2,12 @@
   <v-app>
     <dashboard-core-app-bar />
 
-    <v-content>
-      <ManagerView />
-      <ManagerAppBar />
-      <ManagerSettings />
-      <!-- <dashboard-core-footer /> -->
+    <v-content> 
       <router-view />
+      <DashboardCoreFooter />
     </v-content>
 
-    <dashboard-core-settings />
+    
   </v-app>
 </template>
 

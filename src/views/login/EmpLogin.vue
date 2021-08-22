@@ -2,11 +2,10 @@
 <template>
   <v-container class="my-8">
     <v-card class="mx-auto mp-auto" style="max-width: 400px;">
-      
-
+    
       <v-toolbar color="blue(grey)-4" cards dark flat>
         <v-card-title class="text-h6 font-weight-regular">
-          Login
+          Employee Login
         </v-card-title>
         <v-spacer></v-spacer>
       </v-toolbar>
@@ -15,10 +14,10 @@
         </div>
       <v-form ref="form" class="pa-4 pt-6">
         <v-text-field
-          v-model="username"
+          v-model="email"
           filled
           color="deep-purple"
-          label="username"
+          label="Email"
         ></v-text-field>
         <v-text-field
           v-model="password"
@@ -60,10 +59,10 @@ export default {
   name: "Login",
   data(){
     return {
-      username: "",
+      email: "",
       password: "",
       rules: {
-        username: v => !!(v || "").match(/@/) || "Please enter a valid username",
+        email: v => !!(v || "").match(/@/) || "Please enter a valid email",
         length: len => v =>
           (v || "").length >= len || `Invalid character length, required ${len}`,
         password: v =>
@@ -77,8 +76,8 @@ export default {
   },
   methods: {
     async login(){
-      await axios.post("http://localhost:3000/Login", {
-        username: this.username,
+      await axios.post("http://localhost:3000/EmpLogin", {
+        email: this.email,
         password: this.password
       }).then(response => {
         if(response.data.header.error){
@@ -90,7 +89,7 @@ export default {
 
         cookies.set("logged_user", response.data.data.token);
         variables.logged_user = response.data.data;
-        this.$router.push("/customer");
+        this.$router.push("/CaseWorker");
 
       });
     }

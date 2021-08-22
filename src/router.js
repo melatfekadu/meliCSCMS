@@ -56,6 +56,16 @@ export default new Router({
           path: '/caseComplaint/:id',
           component: () => import('@/views/complaints/caseComplaint'),
         },
+        {
+          name: 'rating',
+          path: '/rating/:id',
+          component: () => import('@/views/complaints/rating'),
+        },
+        {
+          name: 'emergencyReport',
+          path: '/emergencyReport/:id',
+        component: () => import('@/views/complaints/emergencyReport'),
+          },
        
 
        
@@ -131,6 +141,16 @@ export default new Router({
           name: 'User Profile',
           component: () => import('@/views/customer/pages/UserProfile'),
         },
+        {
+          path: '/status',
+          name: 'Status',
+          component: () => import('@/views/customer/status'),
+        },
+        {
+          path: '/OnGoing',
+          name: 'OnGoing',
+          component: () => import('@/views/customer/OnGoingz'),
+        },
       ]
     },
     {
@@ -149,6 +169,16 @@ export default new Router({
           path: '/Warning',  
           component: () => import('@/views/manager/Warning'),
         },
+        {
+          name: 'ongoing',
+          path: '/ongoing',  
+          component: () => import('@/views/manager/ongoing'),
+        },
+        {
+          name: 'completed',
+          path: '/completed',  
+          component: () => import('@/views/manager/completed'),
+        },
       ]
     },
     {
@@ -161,6 +191,12 @@ export default new Router({
         path: '/',
       component: () => import('@/views/assistance/Assistance'),
         },
+        {
+          name: 'NonCustomerReport',
+          path: '/NonCustomerReport',
+        component: () => import('@/views/assistance/NonCustomerReport'),
+          },
+         
       ]
     },
     {
@@ -265,10 +301,31 @@ export default new Router({
       ]
     
     }, 
+        {
+        path:'/CaseWorker',
+        name:'CaseWorker',
+        component: () => import('@/views/case_worker/Index.vue'),
+        children:[
+          {
+            name: 'CaseWorker',
+            path: '/',
+            component: () => import('@/views/case_worker/CaseWorker'),
+
+          // component: () => import('@/views/Operation_Maintenance/N'),
+            },
+    ]
+
+    }, 
     {
       name: 'Login',
       path:'/Login',
       component: () => import('@/views/login/Login'),
     },
+    {
+      name: 'EmpLogin',
+      path:'/EmpLogin',
+      component: () => import('@/views/login/EmpLogin'),
+    },
+
   ],
 })

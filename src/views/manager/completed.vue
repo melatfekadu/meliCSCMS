@@ -1,25 +1,22 @@
 <template>
-  <v-container id="emergency" fluid tag="section">
+  <v-container id="assistance" fluid tag="section">
+    
+        
     <v-row>
       <v-col cols="12" md="11">
         <base-material-card class="px-5 py-3">
           <template v-slot:heading>
             <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
-              <v-tab class="mr-3">
-                Complaints
-              </v-tab>
-              <v-tab class="mr-3" to="warning/Warnings">
-                Warning
-              </v-tab>
               
               <v-tab class="mr-3">
-                Ratings
+                Completed
               </v-tab>
+             
             </v-tabs>
           </template>
 
           <v-tabs-items v-model="tabs" class="transparent">
-            <v-list v-for="(complaint, index) in emergency" :key="index">
+            <v-list v-for="(complaint, index) in completed" :key="index">
               <v-list-item>
                 <v-col cols="1">
                   <v-list-item-action>
@@ -37,7 +34,7 @@
                   </v-col>
                   <v-col cols="12">
                     {{smallPart(complaint.description)}}
-                    <router-link :to="'caseComplaint/'+complaint._id">read more</router-link>
+                    <router-link :to="'Complaints/'+complaint._id">read more</router-link>
                   </v-col>
                   <v-col cols="12">Date: {{complaint.date}}</v-col>
                 </v-col>
@@ -53,7 +50,8 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Emergency",
+  name: "completed",
+  
   data() {
     return {
       complaints: [],
@@ -65,8 +63,8 @@ export default {
     };
   },
   computed:{
-    emergency(){
-    return this.complaints.filter(comp=>comp.subComplaint=="emergency")
+    completed(){
+    return this.complaints.filter(comp=>comp.status=="completed")
    }
   },
   mounted() {

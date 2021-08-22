@@ -1,25 +1,26 @@
+
 <template>
-  <v-container id="emergency" fluid tag="section">
+  <v-container id="assistance" fluid tag="section">
+    
+        
     <v-row>
       <v-col cols="12" md="11">
         <base-material-card class="px-5 py-3">
           <template v-slot:heading>
             <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
-              <v-tab class="mr-3">
-                Complaints
-              </v-tab>
-              <v-tab class="mr-3" to="warning/Warnings">
-                Warning
-              </v-tab>
               
               <v-tab class="mr-3">
-                Ratings
+                Completed
               </v-tab>
+              <v-tab class="mr-3">
+                On Going
+              </v-tab>
+             
             </v-tabs>
           </template>
 
           <v-tabs-items v-model="tabs" class="transparent">
-            <v-list v-for="(complaint, index) in emergency" :key="index">
+            <v-list v-for="(complaint, index) in status" :key="index">
               <v-list-item>
                 <v-col cols="1">
                   <v-list-item-action>
@@ -36,11 +37,23 @@
                     >Address: {{complaint.address}}</small>
                   </v-col>
                   <v-col cols="12">
-                    {{smallPart(complaint.description)}}
-                    <router-link :to="'caseComplaint/'+complaint._id">read more</router-link>
+                    {{complaint.description}}
                   </v-col>
                   <v-col cols="12">Date: {{complaint.date}}</v-col>
-                </v-col>
+                  <v-rating
+                        v-model="rating"
+                        background-color="green lighten-3"
+                        color="green"
+                        large
+                        ></v-rating>
+                  <v-btn
+                    color="warning"
+                    class="mr-0"
+                    @click="register" 
+                  >
+                    confirm
+                  </v-btn>
+                  </v-col>
               </v-list-item>
             </v-list>
           </v-tabs-items>
@@ -53,7 +66,8 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Emergency",
+  name: "completed",
+  
   data() {
     return {
       complaints: [],
@@ -65,8 +79,8 @@ export default {
     };
   },
   computed:{
-    emergency(){
-    return this.complaints.filter(comp=>comp.subComplaint=="emergency")
+    status(){
+    return this.complaints.filter(comp=>comp.status=="completed")
    }
   },
   mounted() {

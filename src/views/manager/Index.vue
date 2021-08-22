@@ -9,7 +9,7 @@
       <dashboard-core-footer />
   </v-content>
 
-    <dashboard-core-settings />
+   
   </v-app>
 </template>
 

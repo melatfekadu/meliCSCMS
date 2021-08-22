@@ -11,9 +11,7 @@
               <v-tab class="mr-3" to="warning/Warnings">
                 Warning
               </v-tab>
-              <v-tab class="mr-3">
-                Status
-              </v-tab>
+              
               <v-tab class="mr-3">
                 Ratings
               </v-tab>
@@ -68,7 +66,7 @@ export default {
   },
   computed:{
     Design(){
-    return this.complaints.filter(comp=>comp.subComplaint=="Design")
+    return this.complaints.filter(comp=>comp.subComplaint=="design")
    }
   },
   mounted() {

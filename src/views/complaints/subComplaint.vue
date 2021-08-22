@@ -18,7 +18,7 @@
           <v-select
             v-model="select"
             
-            :items="['New Connection', 'Reload', 'Billing', 'Emergency','Complaint On Employee', 'Prevative Maintenance', 'Relocation','Inspection', 'Design']"
+            :items="['Billing','Complaint On Employee','New Connection', 'Reload', 'Emergency', 'Prevative Maintenance', 'Relocation','Inspection', 'Design']"
             label="Department"
           >
             <template v-slot:item="{ item, attrs, on }">

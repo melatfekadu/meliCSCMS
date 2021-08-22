@@ -10,6 +10,11 @@
                 complaints
               </v-tab>
               
+              <v-tab class="mr-3" to="/NonCustomerReport">
+                non customer reports
+              </v-tab>
+              
+              
 
              
             </v-tabs>

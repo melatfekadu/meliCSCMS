@@ -3,13 +3,13 @@
     <!-- <dashboard-core-drawer /> -->
     <!-- <ManagerialDrawer /> -->
 
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form >
       <div>
         <v-toolbar color="grey darken-4">
           <v-toolbar-title class="white--text">CSCMS</v-toolbar-title>
 
           <v-spacer></v-spacer>
-          <router-link to="/" tag="v-btn">
+          <router-link to="/">
             <v-btn icon color="white">
               <v-icon>mdi-home</v-icon>
             </v-btn>
@@ -20,27 +20,23 @@
       <v-text-field
         v-model="first_name"
         :counter="10"
-        :rules="LnameRules"
         label=" First Name"
         required
       ></v-text-field>
       <v-text-field
         v-model="last_name"
         :counter="10"
-        :rules="LnameRules"
         label=" Last Name"
         required
       ></v-text-field>
 
       <v-text-field
         v-model="email"
-        :rules="emailRules"
         label="E-mail"
         required
       ></v-text-field>
       <v-text-field
         v-model="phone_no"
-        :rules="phoneNumberRules"
         label="Phone number"
         required
       ></v-text-field>
@@ -53,7 +49,7 @@
       <v-select
         v-model="select"
         :items="items"
-        :rules="[v => !!v || ' Case is required']"
+        
         label="Case"
         required
       ></v-select>
@@ -72,37 +68,29 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Noncustomer",
   data: () => ({
 
     // valid: true,
-    Fname: "",
-    FnameRules: [
-      v => !!v || "Name is required",
-      v => (v && v.length <= 10) || "Name must be less than 10 characters"
-    ],
-    Lname: "",
-    LnameRules: [
-      v => !!v || "Name is required",
-      v => (v && v.length <= 10) || "Name must be less than 10 characters"
-    ],
+    first_name: "",
 
-    phoneNumber: "",
-    phoneNumberRules: [
-      [
-        v => !!v || "This field is required",
-        v => /^\d+$/.test(v) || "This field only accept numbers"
-      ]
-    ],
+    last_name: "",
+
+
+    email:"",
+ 
+    phone_no: "",
+    
     location:"",
     select: null,
-    items: ["Fire", "Fall down", "Accident", "Rain"],
+    items: ['CustomerService', 'OperationMaintenance', 'Manager'],
     description:"",
   }),
 
   methods: {
-    validate() {
+    valid() {
       this.$refs.form.validate();
     },
       send() {
@@ -118,7 +106,7 @@ export default {
       };
 
       axios
-        .post("http://localhost:3000/emergency_reports", newEmergency)
+        .post("http://localhost:3000/emergencys", newEmergency)
 
         .then(() => {
           this.$router.push({ path: "/" });

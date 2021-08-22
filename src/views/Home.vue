@@ -21,18 +21,35 @@
             Log in
           </v-btn>
         </router-link>
+        <router-link to="/EmpLogin" tag="v-btn">
+          <v-btn text name="login">
+             Emp Log in
+          </v-btn>
+        </router-link>
+        
       </v-toolbar-items>
     </v-toolbar>
 
-    <div class="heroblock">
+    <div class="heroblock" >
       <v-carousel hide-delimiters cycle>
         <v-carousel-item
           v-for="(item, i) in items"
           :key="i"
           :src="item.src"
           reverse-transition="fade-transition"
+          
+        > </v-carousel-item>
+      </v-carousel>
+    </div>
+    <div class="heroblock" >
+      <v-carousel hide-delimiters cycle>
+        <v-carousel-item
+          v-for="(item, i) in items"
+          :key="i"
+          :src="item.src"
+          
           transition="fade-transition"
-        ></v-carousel-item>
+        > </v-carousel-item>
       </v-carousel>
     </div>
   </v-content>
