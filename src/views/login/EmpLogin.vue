@@ -76,8 +76,8 @@ export default {
   },
   methods: {
     async login(){
-      await axios.post("http://localhost:3000/EmpLogin", {
-        email: this.email,
+      await axios.post("http://localhost:3000/employee_login", {
+        username: this.username,
         password: this.password
       }).then(response => {
         if(response.data.header.error){
@@ -89,10 +89,32 @@ export default {
 
         cookies.set("logged_user", response.data.data.token);
         variables.logged_user = response.data.data;
-        this.$router.push("/CaseWorker");
+        //console.log(response.data.data);
+        let link = separateView();
+        this.$router.push(link);
 
       });
+    },
+    async logout(){
+
+      let token = cookies.get("logged_user");
+      //console.log(token);
+      await axios.post("http://localhost:3000/logout", { token: token }).then(response => {
+
+        if(!response.data.header.error){
+          this.$router.push("/employeelogin");
+          return;
+        }
+
+        // showMessage(true, "message_display", "successful");
+        // this.complains = response.data.data;
+        // console.log(response.data.data);
+        // this.complaints = response.data.data;
+
+      });
+
     }
   }
+
 }
 </script>

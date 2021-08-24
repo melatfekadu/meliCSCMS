@@ -107,9 +107,9 @@
           to: '#',
         },
         {
-          title: 'rtables',
-          icon: 'mdi-clipboard-outline',
-          to: '#',
+          title: 'Send Report',
+          icon: 'mdi-message',
+          to: '/SendReport',
         },
         {
           title: 'notifications',

@@ -64,6 +64,22 @@ export default {
       tasks: []
     };
   },
+
+  async created(){
+    if(!await checkAuth()){
+      this.$router.push("/EmpLogin");
+    }
+
+    if(variables.logged_user.type!= "CustomerService" || "OperationMaintenance"){
+      this.$router.push("/");
+    }
+
+    if(variables.logged_user.department != "reload"){
+      this.$router.push("/");
+    }
+
+    await this.getComplains();
+  },
   computed:{
     Reload(){
     return this.complaints.filter(comp=>comp.subComplaint=="reload")
@@ -77,17 +93,25 @@ export default {
       return text.slice(0, 80);
     },
     async fetchComplaints() {
-      axios({
-        method: "get",
-        url: "http://localhost:3000/complaints"
-      })
-        .then(response => {
-          this.complaints = response.data;
-          console.log(this.complaints);
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      let token = cookies.get("logged_user");
+      //console.log(token);
+      await axios.get("http://localhost:3000/complaints/"+token).then(response => {
+
+        if(response.data.header.error){
+          showMessage(false, "message_display", response.data.header.message);
+          //console.log(response);
+          return;
+        }
+
+        // showMessage(true, "message_display", "successful");
+        //this.complaints = response.data.data;
+        console.log(response.data.data);
+        this.complaints = response.data.data;
+
+      });
+
+    
+  
       axios({
         method: "put",
         url: "http://localhost:3000/complaints"

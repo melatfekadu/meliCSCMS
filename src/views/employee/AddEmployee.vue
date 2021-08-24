@@ -223,7 +223,7 @@ export default {
         .post("http://localhost:3000/employees", newEmployee)
 
         .then(() => {
-          this.$router.push({ path: "/" });
+          this.$router.push({ path: "/admin" });
           this.$refs.form.reset();
         })
         .catch((err) => {

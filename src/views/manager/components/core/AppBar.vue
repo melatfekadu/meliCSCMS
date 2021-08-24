@@ -114,6 +114,15 @@
     >
       <v-icon>mdi-account</v-icon>
     </v-btn>
+    <v-btn
+      @click="logout"
+      class="ml-2"
+      min-width="0"
+      text
+      to=""
+    >
+      <v-icon>mdi-logout</v-icon>
+    </v-btn>
   </v-app-bar>
 </template>
 
@@ -178,6 +187,7 @@
       ...mapMutations({
         setDrawer: 'SET_DRAWER',
       }),
+      
     },
   }
 </script>

@@ -122,32 +122,30 @@
 <script>
 import axios from "axios";
 export default {
-  // components: {
-  //     CustomerAppBar: () => import('./components/core/AppBar'),
-  //     CustomerDrawer: () => import('./components/core/Drawer'),
-  //     CustomerSettings: () => import('./components/core/Settings'),
-  //     CustomerView: () => import('./components/core/View'),
-  //   },
+  async created(){
+    if(!await checkAuth()){
+      this.$router.push("/employee_login");
+    }
+
+    if(variables.logged_user.type != "employee"){
+      this.$router.push("/");
+    }
+
+    if(variables.logged_user.department != "assistant"){
+      this.$router.push("/");
+    }
+
+    await this.getComplains();
+  },
   
   data() {
     return {
       drawer: false,
-      links: [
-        // { icon: "home", text: "Home", route: "/" },
-        // {
-        //   icon: "person_add",
-        //   text: "Create Account",
-        //   route: "/create-account",
-        // },
-        // // { icon: 'recent_actors', text: 'View Users Account', route: '/view_accounts'},
-      ],
+      links: [],
       valid: true,
       user_name:"",
       phone_no: "",
-      // phone_noRules: [
-      //   [v => !!v || 'This field is required',
-      //   v => /^\d+$/.test(v)||'This field only accept numbers']
-      // ],
+      
       address: "",
       date:"",
       description: "",
@@ -155,6 +153,22 @@ export default {
     };
   },
   methods: {
+    async logout(){
+
+      let token = cookies.get("logged_user");
+      //console.log(token);
+      await axios.post("http://localhost:3000/logout", { token: token }).then(response => {
+
+        if(!response.data.header.error){
+          cookies.remove("logged_user");
+          variables.logged_user = {};
+          this.$router.push("/login");
+          
+        }
+
+      });
+
+    },
   registerComplaint() {
       //if (this.$refs.form.validate()) {
       let newComplaint = {
@@ -168,16 +182,7 @@ export default {
       // console.log("newCustomer", newCustomer);
       axios
         .post("http://localhost:3000/complaints", newComplaint)
-        //       return axios({
-        //         method: 'post',
-        //           data: {
-
-        //       },
-        //    url: 'http://localhost:3000/customers',
-        //     headers: {
-        //        'main-Type': 'application/json',
-        //       },
-        //     })
+        
         .then(() => {
           this.get('/complaints', (req,res)=>{
             res.render('/')

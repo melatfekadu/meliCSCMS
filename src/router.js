@@ -147,9 +147,9 @@ export default new Router({
           component: () => import('@/views/customer/status'),
         },
         {
-          path: '/OnGoing',
+          path: '/ongoing',
           name: 'OnGoing',
-          component: () => import('@/views/customer/OnGoingz'),
+          component: () => import('@/views/customer/ongoing'),
         },
       ]
     },
@@ -209,6 +209,11 @@ export default new Router({
         path: '/',
       component: () => import('@/views/customer_service/Customer_Service'),
         },
+        {
+          name: 'SendReport',
+          path: '/SendReport',
+        component: () => import('@/views/customer_service/SendReport'),
+          },
       ]
     },
     {

@@ -57,6 +57,15 @@ import * as cookies from '@/cookies';
 import {variables} from "@/global";
 
 export default {
+    async created(){
+    if (await checkAuth()){
+
+      if(variables.logged_user.type == "customer"){
+        this.$router.push("/customer");
+      }
+
+    }
+  },
   name: "Login",
   data(){
     return {
@@ -77,7 +86,7 @@ export default {
   },
   methods: {
     async login(){
-      await axios.post("http://localhost:3000/Login", {
+      await axios.post("http://localhost:3000/customer_login", {
         username: this.username,
         password: this.password
       }).then(response => {
@@ -90,9 +99,31 @@ export default {
 
         cookies.set("logged_user", response.data.data.token);
         variables.logged_user = response.data.data;
+        console.log(response.data.data);
         this.$router.push("/customer");
 
       });
+    },
+    async logout(){
+
+      let token = cookies.get("logged_user");
+      //console.log(token);
+      await axios.post("http://localhost:3000/logout", { token: token }).then(response => {
+
+        if(!response.data.header.error){
+          //showMessage(false, "message_display", response.data.header.message);
+          //console.log(response);
+          this.$router.push("/customer");
+          return;
+        }
+
+        // showMessage(true, "message_display", "successful");
+        // this.complains = response.data.data;
+        // console.log(response.data.data);
+        // this.complaints = response.data.data;
+
+      });
+
     }
   }
 }

@@ -58,7 +58,9 @@
 </template>
 
 <script>
+import * as cookies from "@/cookies";
 import axios from "axios";
+import {checkAuth, showMessage} from "@/global";
 export default {
   name: "DashboardDashboard",
   
@@ -72,6 +74,27 @@ export default {
       tasks: []
     };
   },
+  async created(){
+  if (!await checkAuth()){
+    this.$router.push("/EmpLo");
+  }
+
+  if(await variables.logged_user.type != "employee"){
+    this.$router.push("/");
+  }
+
+  if(await variables.logged_user.department != "manager"){
+    let link = separateView();
+    this.$router.push(link);
+  }
+  if(await variables.logged_user.department == "manager"){
+    let link = separateView();
+    this.$router.push("/manager");
+  }
+
+},
+
+
   computed:{
     Manager(){
     return this.complaints.filter(comp=>comp.type=="Manager")
@@ -84,6 +107,7 @@ export default {
     smallPart(text) {
       return text.slice(0, 80);
     },
+    
     async fetchComplaints() {
       axios({
         method: "get",
@@ -101,6 +125,7 @@ export default {
         url: "http://localhost:3000/complaints"
       });
     }
+    
   }
 };
 </script>

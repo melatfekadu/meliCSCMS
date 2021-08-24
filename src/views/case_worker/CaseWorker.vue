@@ -268,38 +268,21 @@ export default {
       tasks: []
     };
   },
-  computed:{
-    CustomerService(){
-    return this.complaints.filter(comp=>comp.subComplaint=="billing")
-  }},
-  computed:{
-    CustomerService(){
-    return this.complaints.filter(comp=>comp.subComplaint=="employee")
-  }},
-  computed:{
-    CustomerService(){
-    return this.complaints.filter(comp=>comp.subComplaint=="design")
-  }},
-  computed:{
-    CustomerService(){
-    return this.complaints.filter(comp=>comp.subComplaint=="emergency")
-  }},
-  computed:{
-    CustomerService(){
-    return this.complaints.filter(comp=>comp.subComplaint=="inspection")
-  }},
-  computed:{
-    CustomerService(){
-    return this.complaints.filter(comp=>comp.subComplaint=="newconnection")
-  }},
-  computed:{
-    CustomerService(){
-    return this.complaints.filter(comp=>comp.subComplaint=="prevative")
-  }},
-  computed:{
-    CustomerService(){
-    return this.complaints.filter(comp=>comp.subComplaint=="reload")
-  }},
+  async created(){
+    if(!await checkAuth()){
+      this.$router.push("/EmpLogin");
+    }
+
+    if(variables.logged_user.type!= "CustomerService" || "OperationMaintenance"){
+      this.$router.push("/");
+    }
+
+    if(variables.logged_user.subComplaint != "caseworker"){
+      this.$router.push("/");
+    }
+
+    await this.getComplains();
+  },
   computed:{
     CustomerService(){
     return this.complaints.filter(comp=>comp.subComplaint=="relocation")
