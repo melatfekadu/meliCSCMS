@@ -17,10 +17,10 @@
           <v-card-text>
             <!-- :headers="headers" -->
             <v-data-table :items="customers" :headers="customer_headers">
-              <template v-slot:item.actions="{ item }"> 
-               <router-link :to="'edit-customer/'+item._id">
-                 <v-icon small class="mr-2" >mdi-pencil</v-icon>
-                 </router-link> 
+              <template v-slot:item.actions="{ item }">
+                <router-link :to="'edit-customer/' + item._id">
+                  <v-icon small class="mr-2">mdi-pencil</v-icon>
+                </router-link>
                 <v-icon small @click="deleteItem1(item)">mdi-delete</v-icon>
               </template>
             </v-data-table>
@@ -42,9 +42,9 @@
           </template>
           <v-card-text>
             <v-data-table :headers="employee_headers" :items="employees">
-              <template v-slot:item.actions="{ item }"> 
-                <router-link :to="'UpdateEmployee/'+item._id">
-                <v-icon small class="mr-2">mdi-pencil</v-icon>
+              <template v-slot:item.actions="{ item }">
+                <router-link :to="'UpdateEmployee/' + item._id">
+                  <v-icon small class="mr-2">mdi-pencil</v-icon>
                 </router-link>
                 <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
               </template>
@@ -59,22 +59,37 @@
 import axios from "axios";
 export default {
   name: "Admin",
- 
-    data() {
+  async created() {
+    if (!(await checkAuth())) {
+      this.$router.push("/EmpLogin");
+    }
+
+    if (variables.logged_user.type != "employee") {
+      this.$router.push("/EmpLogin");
+    }
+
+    if (variables.logged_user.department != "admin") {
+      let link = separateView();
+      this.$router.push(link);
+    }
+
+    await this.getComplains();
+  },
+  data() {
     return {
       customers: [],
       employees: [],
       tabs: "",
-      editedIndex:-1,
-      editItemData:{
-        first_name:'',
-        last_name:'',
-        email:'',
-        phone_no:'',
-        address:'',
-        gender:'',
-        user_name:'',
-        password:'',
+      editedIndex: -1,
+      editItemData: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone_no: "",
+        address: "",
+        gender: "",
+        user_name: "",
+        password: "",
       },
       customer_headers: [
         { text: "Id", value: "_id" },
@@ -86,7 +101,7 @@ export default {
         { text: "Gender", value: "gender" },
         { text: "User Name", value: "user_name" },
         { text: "Password", value: "password" },
-        { text: "Action", value: "actions", sortable: false }
+        { text: "Action", value: "actions", sortable: false },
       ],
       employee_headers: [
         { text: "Id", value: "_id" },
@@ -100,76 +115,96 @@ export default {
         { text: "Department", value: "department" },
         { text: "User Name", value: "user_name" },
         { text: "Password", value: "password" },
-        { text: "Action", value: "actions", sortable: false }
-      ]
+        { text: "Action", value: "actions", sortable: false },
+      ],
     };
   },
   computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-      },
+    formTitle() {
+      return this.editedIndex === -1 ? "New Item" : "Edit Item";
     },
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
-      dialogDelete (val) {
-        val || this.closeDelete()
-      },
+  },
+  watch: {
+    dialog(val) {
+      val || this.close();
     },
-
-    
+    dialogDelete(val) {
+      val || this.closeDelete();
+    },
+  },
 
   mounted() {
     this.fetchCustomers();
     this.fetchEmployees();
   },
   methods: {
-    async fetchCustomers() {
-      axios({
-        method: "get",
-        url: "http://localhost:3000/customers"
-      })
-        .then(response => {
-          this.customers = response.data;
-          console.log(this.customers);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-    fetchEmployees() {
-      axios
-        .get("http://localhost:3000/employees")
-        .then(res => {
-          this.employees = res.data;
-          console.log(this.employees);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-    editItem(item){
+    async logout(){
 
+      let token = cookies.get("logged_user");
+      
+      await axios.post("http://localhost:3000/logout", { token: token }).then(response => {
+
+        if(!response.data.header.error){
+          this.$router.push("/employeelogin");
+        }
+
+      });
+
+    },
+    async fetchCustomers() {
+      await axios({
+        method: "get",
+        url: "http://localhost:3000/customers",
+      })
+        .then((response) => {
+          if (!response.data.header.error) {
+            this.customers = response.data.data;
+            console.log(this.customers);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+     async fetchEmployees() {
+      await axios({
+        method: "get",
+        url: "http://localhost:3000/employees",
+      })
+        .then((response) => {
+          if (!response.data.header.error) {
+            this.employees = response.data.data;
+            console.log(this.employees);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+   
+    editItem(item) {
       this.editedIndex = this.custmers.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
-      
+
+      // axios
+      //   .put("http://localhost:3000/customers"),
     },
     deleteItem1(item) {
       axios
-    .delete(`http://localhost:3000/customer/${item._id}`)
-    .then(res => {
-      if(res.data.success){
-       this.customers = this.customers.filter(customer => customer._id != item._id)
-      }
-      else{
-        console.log('not success')
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
+        .delete(`http://localhost:3000/customer/${item._id}`)
+        .then((res) => {
+          if (res.data.success) {
+            this.customers = this.customers.filter(
+              (customer) => customer._id != item._id
+            );
+          } else {
+            console.log("not success");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
 
     deleteItemConfirm() {
@@ -178,24 +213,25 @@ export default {
     },
     deleteItem(item) {
       axios
-    .delete(`http://localhost:3000/employee/${item._id}`)
-    .then(res => {
-      if(res.data.success){
-       this.employees = this.employees.filter(employee => employee._id != item._id)
-      }
-      else{
-        console.log('not success')
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
+        .delete(`http://localhost:3000/employee/${item._id}`)
+        .then((res) => {
+          if (res.data.success) {
+            this.employees = this.employees.filter(
+              (employee) => employee._id != item._id
+            );
+          } else {
+            console.log("not success");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
 
     deleteItemConfirm() {
       this.employees.splice(this.editedIndex, 1);
       this.closeDelete();
-    }
-  }
+    },
+  },
 };
 </script>

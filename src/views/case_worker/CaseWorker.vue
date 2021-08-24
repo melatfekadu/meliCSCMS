@@ -254,7 +254,9 @@
 </template>
 
 <script>
+import * as cookies from "@/cookies";
 import axios from "axios";
+import {checkAuth,spar} from "@/global";
 export default {
   name: "DashboardDashboard",
   
@@ -273,12 +275,13 @@ export default {
       this.$router.push("/EmpLogin");
     }
 
-    if(variables.logged_user.type!= "CustomerService" || "OperationMaintenance"){
-      this.$router.push("/");
+    if(variables.logged_user.type != "employee"){
+      this.$router.push("/EmpLogin");
     }
 
-    if(variables.logged_user.subComplaint != "caseworker"){
-      this.$router.push("/");
+    if(variables.logged_user.department != "caseworker"){
+      let link = separateView();
+      this.$router.push(link);
     }
 
     await this.getComplains();

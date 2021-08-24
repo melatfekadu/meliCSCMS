@@ -203,8 +203,13 @@ export default new Router({
         {
           name: 'SendReport',
           path: '/SendReport',
-          component: () => import('@/views/customer_service/SendReport'),
-        },
+        component: () => import('@/views/customer_service/SendReport'),
+          },
+          {
+            name: 'SendBill',
+            path: '/SendBill',
+          component: () => import('@/views/customer_service/SendBill'),
+            },
       ]
     },
     {
