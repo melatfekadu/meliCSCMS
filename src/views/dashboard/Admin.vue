@@ -1,8 +1,6 @@
 <template>
   <v-container id="dashboard" fluid tag="section">
-    
     <v-row>
-      
       <div class="text-h4 font-weight-light">
         Add Customers
         <router-link to="/AddCustomer">
@@ -157,9 +155,6 @@ export default {
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
       
-      // axios
-      //   .put("http://localhost:3000/customers"),
-      
     },
     deleteItem1(item) {
       axios
@@ -175,10 +170,6 @@ export default {
     .catch(error => {
       console.error(error);
     });
-      // console.log(item._id)
-      // this.editedIndex = this.customers.indexOf(item);
-      // this.editedItem = Object.assign({}, item);
-      // this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
@@ -199,10 +190,6 @@ export default {
     .catch(error => {
       console.error(error);
     });
-      // console.log(item._id)
-      // this.editedIndex = this.customers.indexOf(item);
-      // this.editedItem = Object.assign({}, item);
-      // this.dialogDelete = true;
     },
 
     deleteItemConfirm() {

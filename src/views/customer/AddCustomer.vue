@@ -1,119 +1,51 @@
 <template>
-  <v-container
-    id="user-profile"
-    fluid
-    tag="section"
-  >
-  
+  <v-container id="user-profile" fluid tag="section">
     <v-row justify="center">
-      <v-col
-        cols="12"
-        md="8"
-      >
+      <v-col cols="12" md="8">
         <base-material-card>
           <template v-slot:heading>
-            <div class="text-h3 font-weight-light">
-              Add New Customer
-            </div>
+            <div class="text-h3 font-weight-light">Add New Customer</div>
           </template>
 
           <v-form>
             <v-container class="py-0">
               <v-row>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    v-model="user_name"
-                    class="purple-input"
-                    label="User Name"
-                  />
+                <v-col cols="12" md="4">
+                  <v-text-field v-model="user_name" class="purple-input" label="User Name" />
                 </v-col>
 
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    v-model="email"
-                    label="Email Address"
-                    class="purple-input"
-                  />
+                <v-col cols="12" md="4">
+                  <v-text-field v-model="email" label="Email Address" class="purple-input" />
                 </v-col>
 
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    v-model="first_name"
-                    label="First Name"
-                    class="purple-input"
-                  />
+                <v-col cols="12" md="6">
+                  <v-text-field v-model="first_name" label="First Name" class="purple-input" />
                 </v-col>
 
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    v-model="last_name"
-                    label="Last Name"
-                    class="purple-input"
-                  />
+                <v-col cols="12" md="6">
+                  <v-text-field v-model="last_name" label="Last Name" class="purple-input" />
                 </v-col>
 
                 <v-col cols="12">
-                  <v-text-field
-                    v-model="address"
-                    label="Adress"
-                    class="purple-input"
-                  />
+                  <v-text-field v-model="address" label="Adress" class="purple-input" />
                 </v-col>
 
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    v-model="gender"
-                    label="Gender"
-                    class="purple-input"
-                  />
+                <v-col cols="12" md="4">
+                  <v-text-field v-model="gender" label="Gender" class="purple-input" />
                 </v-col>
-                                <v-col
-                  cols="12"
-                  md="4"
-                >
+                <v-col cols="12" md="4">
                   <v-text-field
-                  v-model="phone_no"
+                    v-model="phone_no"
                     class="purple-input"
                     label="Phone Number"
                     type="number"
                   />
                 </v-col>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    v-model="password"
-                    label="Password"
-                    class="purple-input"
-                  />
+                <v-col cols="12" md="4">
+                  <v-text-field v-model="password" label="Password" class="purple-input" />
                 </v-col>
-                <v-col
-                  cols="12"
-                  class="text-right"
-                >
-                  <v-btn
-                    color="success"
-                    class="mr-0"
-                    @click="register" :disabled="!valid"
-                  >
-                    Register
-                  </v-btn>
+                <v-col cols="12" class="text-right">
+                  <v-btn color="success" class="mr-0" @click="register" :disabled="!valid">Register</v-btn>
                 </v-col>
               </v-row>
             </v-container>
@@ -127,54 +59,23 @@
 <script>
 import axios from "axios";
 export default {
- 
-    data() {
+  data() {
     return {
       drawer: false,
-      links: [
-        // { icon: "home", text: "Home", route: "/" },
-        // {
-        //   icon: "person_add",
-        //   text: "Create Account",
-        //   route: "/create-account",
-        // },
-        // // { icon: 'recent_actors', text: 'View Users Account', route: '/view_accounts'},
-      ],
+      links: [],
       valid: true,
       first_name: "",
-      // firstnameRules: [
-      //   v => !!v || 'Fisrt Name is required',
-      //   v => (v && v.length <= 20) || 'Name must be less than 10 characters',
-      // ],
       last_name: "",
-      // lastnameRules: [
-      //   v => !!v || 'Last Name is required',
-      //   v => (v && v.length <= 20) || 'Name must be less than 10 characters',
-      // ],
       email: "",
-      // emailRules: [
-      //   v => !!v || 'E-mail is required',
-      //   v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      // ],
       phone_no: "",
-      // phone_noRules: [
-      //   [v => !!v || 'This field is required',
-      //   v => /^\d+$/.test(v)||'This field only accept numbers']
-      // ],
       address: "",
       gender: "",
       user_name: "",
-      // idRules: [
-      //   v => !!v || 'ID is required',
-      //   v => (v && v.length <= 20) || 'ID must be less than 10 characters',
-      // ],
-
-      password: "",
+      password: ""
     };
   },
   methods: {
-  register() {
-      //if (this.$refs.form.validate()) {
+    register() {
       let newCustomer = {
         first_name: this.first_name,
         last_name: this.last_name,
@@ -183,31 +84,24 @@ export default {
         address: this.address,
         gender: this.gender,
         user_name: this.user_name,
-        password: this.password,
+        password: this.password
       };
-      // console.log("newCustomer", newCustomer);
       axios
         .post("http://localhost:3000/customers", newCustomer)
-        
+
         .then(() => {
-          this.$swal(
-            'Great!',
-            'customer added successfully',
-            'success',
-          ),
-          this.get('/customers', (req,res)=>{
-            res.render('/')
-          })
-        .t
-         
+          this.$swal("Great!", "customer added successfully", "success"),
+            this.get("/customers", (req, res) => {
+              res.render("/");
+            }).t;
+
           this.$refs.form.reset();
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
-      //} // VALIDATION END
       return true;
-    },
-  },
+    }
+  }
 };
 </script>

@@ -4,10 +4,6 @@
     fluid
     tag="section"
   >
-  <!-- <CustomerDrawer />
-  <CustomerSettings />
-  <CustomerAppBar />
-  <CustomerView  /> -->
     <v-row justify="center">
       
       <v-col

@@ -2,24 +2,13 @@
 <template>
   <v-container class="my-8">
     <v-card class="mx-auto mp-auto" style="max-width: 400px;">
-      
-
       <v-toolbar color="blue(grey)-4" cards dark flat>
-        <v-card-title class="text-h6 font-weight-regular">
-          Login
-        </v-card-title>
+        <v-card-title class="text-h6 font-weight-regular">Login</v-card-title>
         <v-spacer></v-spacer>
       </v-toolbar>
-      <div id="error_message" style="display: none;" class="alert alert-danger">
-          error occurred
-        </div>
+      <div id="error_message" style="display: none;" class="alert alert-danger">error occurred</div>
       <v-form ref="form" class="pa-4 pt-6">
-        <v-text-field
-          v-model="username"
-          filled
-          color="deep-purple"
-          label="username"
-        ></v-text-field>
+        <v-text-field v-model="username" filled color="deep-purple" label="username"></v-text-field>
         <v-text-field
           v-model="password"
           :rules="[rules.password, rules.length(6)]"
@@ -28,103 +17,89 @@
           counter="6"
           label="Password"
           style="min-height: 96px"
-          type=""
+          type
         ></v-text-field>
-      
-        
       </v-form>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn color="success" @click="login">
-          Login
-        </v-btn>
+        <v-btn color="success" @click="login">Login</v-btn>
 
         <v-spacer></v-spacer>
       </v-card-actions>
-      <v-dialog  absolute max-width="400" persistent>
+      <v-dialog absolute max-width="400" persistent>
         <v-card>
-          <v-card-actions>
-            
-          </v-card-actions>
+          <v-card-actions></v-card-actions>
         </v-card>
       </v-dialog>
     </v-card>
   </v-container>
 </template>
 <script>
-import axios from 'axios';
-import * as cookies from '@/cookies';
-import {variables} from "@/global";
+import axios from "axios";
+import * as cookies from "@/cookies";
+import { variables } from "@/global";
 
 export default {
-    async created(){
-    if (await checkAuth()){
-
-      if(variables.logged_user.type == "customer"){
+  async created() {
+    if (await checkAuth()) {
+      if (variables.logged_user.type == "customer") {
         this.$router.push("/customer");
       }
-
     }
   },
   name: "Login",
-  data(){
+  data() {
     return {
       username: "",
       password: "",
       rules: {
-        username: v => !!(v || "").match(/@/) || "Please enter a valid username",
+        username: v =>
+          !!(v || "").match(/@/) || "Please enter a valid username",
         length: len => v =>
-          (v || "").length >= len || `Invalid character length, required ${len}`,
+          (v || "").length >= len ||
+          `Invalid character length, required ${len}`,
         password: v =>
           !!(v || "").match(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
           ) ||
           "Password must contain an upper case letter, a numeric character, and a special character",
         required: v => !!v || "rest ur password if forgot"
-      },
-    }
+      }
+    };
   },
   methods: {
-    async login(){
-      await axios.post("http://localhost:3000/customer_login", {
-        username: this.username,
-        password: this.password
-      }).then(response => {
-        if(response.data.header.error){
-          let display = window.document.getElementById("error_message");
-          display.style.setProperty("display", "block");
-          display.innerHTML = response.data.header.message;
-          return;
-        }
+    async login() {
+      await axios
+        .post("http://localhost:3000/customer_login", {
+          username: this.username,
+          password: this.password
+        })
+        .then(response => {
+          if (response.data.header.error) {
+            let display = window.document.getElementById("error_message");
+            display.style.setProperty("display", "block");
+            display.innerHTML = response.data.header.message;
+            return;
+          }
 
-        cookies.set("logged_user", response.data.data.token);
-        variables.logged_user = response.data.data;
-        console.log(response.data.data);
-        this.$router.push("/customer");
-
-      });
+          cookies.set("logged_user", response.data.data.token);
+          variables.logged_user = response.data.data;
+          console.log(response.data.data);
+          this.$router.push("/customer");
+        });
     },
-    async logout(){
-
+    async logout() {
       let token = cookies.get("logged_user");
       //console.log(token);
-      await axios.post("http://localhost:3000/logout", { token: token }).then(response => {
-
-        if(!response.data.header.error){
-          //showMessage(false, "message_display", response.data.header.message);
-          //console.log(response);
-          this.$router.push("/customer");
-          return;
-        }
-
-        // showMessage(true, "message_display", "successful");
-        // this.complains = response.data.data;
-        // console.log(response.data.data);
-        // this.complaints = response.data.data;
-
-      });
-
+      await axios
+        .post("http://localhost:3000/logout", { token: token })
+        .then(response => {
+          if (!response.data.header.error) {
+            this.$router.push("/customer");
+            return;
+          }
+        });
     }
   }
-}
+};
 </script>
