@@ -80,17 +80,19 @@
 </template>
 
 <script>
-
 import * as cookies from "@/cookies";
 import axios from "axios";
-import {checkAuth, showMessage} from "@/global";
+import { checkAuth, showMessage } from "@/global";
 
 export default {
   name: "Asssitant",
   data() {
     return {
       drawer: false,
-      links: [{ icon: "", text: "View report", route: "/ViewReport" }, { icon: "", text: "View report", route: "/ViewComplaint" }],
+      links: [
+        { icon: "", text: "View report", route: "/ViewReport" },
+        { icon: "", text: "View report", route: "/ViewComplaint" }
+      ],
       // links: [{ icon: "", text: "View report", route: "/ViewComplaint" }],
       search: "",
       headers: [
@@ -98,55 +100,51 @@ export default {
           text: "Customer",
           align: "start",
           sortable: false,
-          value: "name",
+          value: "name"
         },
         { text: "Complaint", value: "complaint" },
         { text: "Description", value: "description" },
         { text: "Address", value: "address" },
         { text: "Date", value: "date" },
-        { text: "Status", value: "status" },
+        { text: "Status", value: "status" }
       ],
-      complaints: [],
-
+      complaints: []
     };
   },
-  async created(){
-    if(!await checkAuth()){
+  async created() {
+    if (!(await checkAuth())) {
       this.$router.push("/employee_login");
     }
 
-    if(variables.logged_user.type != "employee"){
+    if (variables.logged_user.type != "employee") {
       this.$router.push("/");
     }
 
-    if(variables.logged_user.department != "assistant"){
+    if (variables.logged_user.department != "assistant") {
       this.$router.push("/");
     }
 
     await this.getComplains();
   },
   methods: {
-    async getComplains(){
-
+    async getComplains() {
       let token = cookies.get("logged_user");
       //console.log(token);
-      await axios.get("http://localhost:3000/complaints/"+token).then(response => {
+      await axios
+        .get("http://localhost:3000/complaints/" + token)
+        .then(response => {
+          if (response.data.header.error) {
+            showMessage(false, "message_display", response.data.header.message);
+            //console.log(response);
+            return;
+          }
 
-        if(response.data.header.error){
-          showMessage(false, "message_display", response.data.header.message);
-          //console.log(response);
-          return;
-        }
-
-        // showMessage(true, "message_display", "successful");
-        //this.complaints = response.data.data;
-        console.log(response.data.data);
-        this.complaints = response.data.data;
-
-      });
-
-    },
-
+          // showMessage(true, "message_display", "successful");
+          //this.complaints = response.data.data;
+          console.log(response.data.data);
+          this.complaints = response.data.data;
+        });
+    }
   }
 };
 </script>
