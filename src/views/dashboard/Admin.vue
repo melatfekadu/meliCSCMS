@@ -59,7 +59,22 @@
 import axios from "axios";
 export default {
   name: "Admin",
+  async created() {
+    if (!(await checkAuth())) {
+      this.$router.push("/EmpLogin");
+    }
 
+    if (variables.logged_user.type != "employee") {
+      this.$router.push("/EmpLogin");
+    }
+
+    if (variables.logged_user.department != "admin") {
+      let link = separateView();
+      this.$router.push(link);
+    }
+
+    await this.getComplains();
+  },
   data() {
     return {
       customers: [],
@@ -123,6 +138,19 @@ export default {
     this.fetchEmployees();
   },
   methods: {
+    async logout(){
+
+      let token = cookies.get("logged_user");
+      
+      await axios.post("http://localhost:3000/logout", { token: token }).then(response => {
+
+        if(!response.data.header.error){
+          this.$router.push("/employeelogin");
+        }
+
+      });
+
+    },
     async fetchCustomers() {
       await axios({
         method: "get",
@@ -177,10 +205,6 @@ export default {
         .catch((error) => {
           console.error(error);
         });
-      // console.log(item._id)
-      // this.editedIndex = this.customers.indexOf(item);
-      // this.editedItem = Object.assign({}, item);
-      // this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
@@ -202,10 +226,6 @@ export default {
         .catch((error) => {
           console.error(error);
         });
-      // console.log(item._id)
-      // this.editedIndex = this.customers.indexOf(item);
-      // this.editedItem = Object.assign({}, item);
-      // this.dialogDelete = true;
     },
 
     deleteItemConfirm() {

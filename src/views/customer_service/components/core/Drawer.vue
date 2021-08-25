@@ -112,6 +112,11 @@
           to: '/SendReport',
         },
         {
+          title: 'Send Bill', 
+          icon: 'mdi-message',
+          to: '/SendBill',
+        },
+        {
           title: 'notifications',
           icon: 'mdi-bell',
           to: '#',

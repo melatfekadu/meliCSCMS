@@ -214,6 +214,11 @@ export default new Router({
           path: '/SendReport',
         component: () => import('@/views/customer_service/SendReport'),
           },
+          {
+            name: 'SendBill',
+            path: '/SendBill',
+          component: () => import('@/views/customer_service/SendBill'),
+            },
       ]
     },
     {

@@ -22,13 +22,13 @@
         ></v-text-field>
         <v-text-field
           v-model="password"
-          :rules="[rules.password, rules.length(6)]"
+          
           filled
           color="deep-purple"
-          counter="6"
+          
           label="Password"
           style="min-height: 96px"
-          type=""
+          type="password"
         ></v-text-field>
       
         
@@ -54,19 +54,23 @@
 <script>
 import axios from 'axios';
 import * as cookies from '@/cookies';
-import {variables} from "@/global";
+import {variables, checkAuth, separateView} from "@/global";
 
 export default {
-    async created(){
-    if (await checkAuth()){
+  name: "Login",
+  async created(){
+    if(await checkAuth()){
 
       if(variables.logged_user.type == "customer"){
         this.$router.push("/customer");
+      }else{
+        let link = separateView();
+        this.$router.push(link);
       }
-
+      
     }
+
   },
-  name: "Login",
   data(){
     return {
       username: "",

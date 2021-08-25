@@ -14,22 +14,13 @@
         <base-material-card>
           <template v-slot:heading>
             <div class="text-h3 font-weight-light">
-              Send Report 
+              Send Bill
             </div>
           </template>
 
           <v-form>
             <v-container class="py-0">
               <v-row>
-                
-                <v-col cols="6">
-                  <v-text-field
-                    v-model="department"
-                    label="Department"
-                    class="purple-input"
-                    
-                  />
-                </v-col>
                 <v-col cols="6">
                   <v-text-field
                     v-model="date"
@@ -38,19 +29,28 @@
                     type="date"
                   />
                 </v-col>
-                
-
-                <v-col 
-                cols="50"
-                md="11"
-                >
-                  <v-textarea
-                    v-model="description"
+                <v-col cols="6">
+                  <v-text-field
+                    v-model="username"
+                    label="User Name"
                     class="purple-input"
-                    label="massages"
-                    value=""
+                    
                   />
                 </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                    v-model="service_charge"
+                    label="Service Charge"
+                    class="purple-input"
+                    
+                  />
+                </v-col>
+                  <v-text-field
+                    v-model="payment_date"
+                    label="Payment Date"
+                    class="purple-input"
+                    type="date"
+                  />
                 
                 <v-col
                   cols="12"
@@ -59,9 +59,9 @@
                   <v-btn
                     color="success"
                     class="mr-0"
-                    @click="sendReport" :disabled="!valid"
+                    @click="sendBill" :disabled="!valid"
                   >
-                    Send Report
+                    Send Bill
                   </v-btn>
                 </v-col>
               </v-row>
@@ -82,38 +82,31 @@ export default {
       drawer: false,
       links: [],
       valid: true,
-      department:"",
       date:"",
-      description: "",
+      username:"",
+      service_charge:"",
+      payment_date:"", 
       
      
     };
   },
   methods: {
-  sendReport() {
+  sendBill() {
       //if (this.$refs.form.validate()) {
-      let newReport = {
-        department:this.department,
+      let newBill = {
         date: this.date,
-        description: this.description
+        username:this.username,
+        service_charge: this.service_charge,
+        payment_date: this.payment_date
         
          };
      
       // console.log("newCustomer", newCustomer);
       axios
-        .post("http://localhost:3000/reports", newReport)
-        //       return axios({
-        //         method: 'post',
-        //           data: {
-
-        //       },
-        //    url: 'http://localhost:3000/customers',
-        //     headers: {
-        //        'main-Type': 'application/json',
-        //       },
-        //     })
+        .post("http://localhost:3000/bills", newBill)
+       
         .then(() => {
-          this.get('/reports', (req,res)=>{
+          this.get('/bills', (req,res)=>{
             
           })
           this.$router.push({ path: "/Customer_Service" });
