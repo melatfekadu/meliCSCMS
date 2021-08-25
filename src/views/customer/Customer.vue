@@ -29,12 +29,71 @@
             </v-tabs>
           </template>
       </base-material-card>
+
+        <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn text class="mx-14"
+          color="white"
+          v-bind="attrs"
+          v-on="on"
+        >
+          View Bill
+        </v-btn>
+      </template>
+
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          Bill Report
+        </v-card-title>
+         <v-list v-for="(bill, index) in bills" :key="index">
+        <v-list-item>
+          <div
+             style="font-family: sans-serif; font-size: 17px; font-weight: lighter; margin-bottom: 0;"
+            > Date :{{bill.date}}</div>
+        </v-list-item>
+         <v-list-item>
+         <div
+             style="font-family: sans-serif; font-size: 17px; font-weight: lighter; margin-bottom: 0;"
+            > Service_Charge :{{bill.service_charge}}</div>
+            </v-list-item>
+         <v-list-item>
+            <div
+             style="font-family: sans-serif; font-size: 17px; font-weight: lighter; margin-bottom: 0;"
+            >  Payment_Date :{{bill.payment_date}}</div>
+         </v-list-item>
+         
+
+        
+         </v-list>
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            ok
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+
         <base-material-card color="warning">
           <template v-slot:heading>
             <div class="text-h3 font-weight-light">
               Fill your Complaint
             </div>
           </template>
+
+
+
+
 
           <v-form>
             <v-container class="py-0">
@@ -140,6 +199,7 @@ export default {
   
   data() {
     return {
+      bills: [],
       drawer: false,
       links: [],
       valid: true,
@@ -152,6 +212,9 @@ export default {
      
     };
   },
+  mounted() {
+    this.fetchBills();
+     },
   methods: {
     async logout(){
 
@@ -187,7 +250,7 @@ export default {
           this.get('/complaints', (req,res)=>{
             res.render('/')
           })
-          // this.$router.push({ path: "/" });
+         // this.$router.push({ path: "/" });
           this.$refs.form.reset();
         })
         .catch((err) => {
@@ -196,6 +259,19 @@ export default {
       //} // VALIDATION END
       return true;
     },
+     async fetchBills() {
+       
+       axios({
+        method: "get",
+        url: "http://localhost:3000/bills"
+      })
+        .then(response => {
+          this.bills = response.data;
+          console.log(this.bills);
+        })
+        .catch(error => {
+          console.error(error);
+        });
   },
 };
 </script>

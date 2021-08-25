@@ -21,7 +21,7 @@
         ></v-text-field>
         <v-text-field
           v-model="password"
-          :rules="[rules.password, rules.length(6)]"
+          
           filled
           color="deep-purple"
           counter="6"
@@ -53,10 +53,24 @@
 <script>
 import axios from 'axios';
 import * as cookies from '@/cookies';
-import {variables} from "@/global";
+import {variables, separateView,checkAuth} from "@/global";
 
 export default {
   name: "Login",
+  async created(){
+    if(await checkAuth()){
+      console.log("logged");
+
+      if(variables.logged_user.type == "employee"){
+        this.$router.push("/customer")
+      }else{
+        let link = separateView();
+        this.$router.push(link);
+      }
+      
+    }
+
+  },
   data(){
     return {
       email: "",
@@ -77,7 +91,7 @@ export default {
   methods: {
     async login(){
       await axios.post("http://localhost:3000/employee_login", {
-        username: this.username,
+        email: this.email,
         password: this.password
       }).then(response => {
         if(response.data.header.error){
