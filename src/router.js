@@ -177,7 +177,7 @@ export default new Router({
         },
         {
           name: 'ongoing',
-          path: '/ongoing',
+          path: '/going',
           component: () => import('@/views/manager/ongoing'),
         },
         {
@@ -243,6 +243,11 @@ export default new Router({
           path: '/warning/Warnings',
           component: () => import('@/views/case_worker/warning/Warnings'),
         },
+        {
+          name: 'SendReport',
+          path: '/SendRepo',
+        component: () => import('@/views/Operation_Maintenance/SendReport'),
+          },
       ]
     },
     {
@@ -326,6 +331,13 @@ export default new Router({
           name: 'CaseWorker',
           path: '/',
           component: () => import('@/views/case_worker/CaseWorker'),
+
+          // component: () => import('@/views/Operation_Maintenance/N'),
+        },
+        {
+          name: 'CaseWorker',
+          path: '/SendRe',
+          component: () => import('@/views/case_worker/SendReport'),
 
           // component: () => import('@/views/Operation_Maintenance/N'),
         },

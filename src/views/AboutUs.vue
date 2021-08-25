@@ -19,8 +19,8 @@
     <div class="block">
       <v-container>
         <p>
-          ETHIOPIAN ELECTRIC UTILITY is located in Addis Ababa, Ethiopia and is
-          part of the Household Appliances and Electrical and Electronic Goods
+          ETHIOPIAN ELECTRIC UTILITY is located in Adama, Ethiopia and is part
+          of the Household Appliances and Electrical and Electronic Goods
           Merchant Wholesalers Industry. ETHIOPIAN ELECTRIC UTILITY has 35 total
           employees across all of its locations and generates $4.95 million in
           sales (USD). (Employees and Sales figures are modelled). There are 89

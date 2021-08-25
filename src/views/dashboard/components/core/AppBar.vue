@@ -13,19 +13,6 @@
 
     <v-spacer />
 
-    <v-text-field
-      :label="$t('search')"
-      color="secondary"
-      hide-details
-      style="max-width: 165px"
-    >
-      <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:append-outer>
-        <v-btn class="mt-n2" elevation="1" fab small>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-      </template>
-    </v-text-field>
-
     <div class="mx-3" />
 
     <v-btn class="ml-2" min-width="0" text to="/Admin">
@@ -60,9 +47,6 @@
       </v-list>
     </v-menu>
 
-    <v-btn class="ml-2" min-width="0" text to="/pages/user">
-      <v-icon>mdi-account</v-icon>
-    </v-btn>
     <v-btn @click="logout()" class="ml-2" min-width="0" text>
       logout
       <v-icon>mdi-logout</v-icon>
@@ -77,8 +61,8 @@ import { VHover, VListItem } from "vuetify/lib";
 // Utilities
 import { mapState, mapMutations } from "vuex";
 import axios from "axios";
-import * as cookies from '@/cookies';
-import {variables,separateView,checkAuth} from "@/global";
+import * as cookies from "@/cookies";
+import { variables, separateView, checkAuth } from "@/global";
 
 export default {
   name: "DashboardCoreAppBar",
@@ -95,29 +79,29 @@ export default {
                   attrs: this.$attrs,
                   class: {
                     "black--text": !hover,
-                    "white--text secondary elevation-12": hover,
+                    "white--text secondary elevation-12": hover
                   },
                   props: {
                     activeClass: "",
                     dark: hover,
                     link: true,
-                    ...this.$attrs,
-                  },
+                    ...this.$attrs
+                  }
                 },
                 this.$slots.default
               );
-            },
-          },
+            }
+          }
         });
-      },
-    },
+      }
+    }
   },
 
   props: {
     value: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
 
   data: () => ({
@@ -126,12 +110,12 @@ export default {
       "You have 5 new tasks",
       "You're now friends with Andrew",
       "Another Notification",
-      "Another one",
-    ],
+      "Another one"
+    ]
   }),
 
   computed: {
-    ...mapState(["drawer"]),
+    ...mapState(["drawer"])
   },
 
   methods: {
@@ -140,7 +124,7 @@ export default {
 
       await axios
         .post("http://localhost:3000/logout", { token: token })
-        .then((response) => {
+        .then(response => {
           if (!response.data.header.error) {
             cookies.remove("logged_user");
             variables.logged_user = {};
@@ -149,8 +133,8 @@ export default {
         });
     },
     ...mapMutations({
-      setDrawer: "SET_DRAWER",
-    }),
-  },
+      setDrawer: "SET_DRAWER"
+    })
+  }
 };
 </script>

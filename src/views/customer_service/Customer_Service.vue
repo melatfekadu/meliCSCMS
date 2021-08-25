@@ -69,22 +69,22 @@ import * as cookies from "@/cookies";
 import { variables, checkAuth, separateView } from "@/global";
 export default {
   name: "CustomerService",
-  async created() {
-    if (!(await checkAuth())) {
-      this.$router.push("/EmpLogin");
-    }
+  // async created() {
+  //   if (!(await checkAuth())) {
+  //     this.$router.push("/EmpLogin");
+  //   }
 
-    if (variables.logged_user.type != "employee") {
-      this.$router.push("/EmpLogin");
-    }
+  //   if (variables.logged_user.type != "employee") {
+  //     this.$router.push("/EmpLogin");
+  //   }
 
-    if (variables.logged_user.department != "Customer_Service") {
-      let link = separateView();
-      this.$router.push(link);
-    }
+  //   if (variables.logged_user.department != "Customer_Service") {
+  //     let link = separateView();
+  //     this.$router.push(link);
+  //   }
 
-    await this.fetchComplaints();
-  },
+  //   await this.fetchComplaints();
+  // },
   data() {
     return {
       complaints: [],
@@ -92,13 +92,13 @@ export default {
       items: [],
 
       tabs: 0,
-      tasks: [],
+      tasks: []
     };
   },
   computed: {
     CustomerService() {
-      return this.complaints.filter((comp) => comp.type == "CustomerService");
-    },
+      return this.complaints.filter(comp => comp.type == "CustomerService");
+    }
   },
   mounted() {
     this.fetchComplaints();
@@ -108,16 +108,16 @@ export default {
       let token = cookies.get("logged_user");
       axios({
         method: "get",
-        url: "http://localhost:3000/complaints/"+token,
+        url: "http://localhost:3000/complaints/" + token
       })
-        .then((response) => {
+        .then(response => {
           if (!response.data.header.error) {
             this.complaints = response.data.data;
           }
 
           //console.log(this.complaints);
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
       // axios({
@@ -130,7 +130,7 @@ export default {
 
       await axios
         .post("http://localhost:3000/logout", { token: token })
-        .then((response) => {
+        .then(response => {
           if (!response.data.header.error) {
             this.$router.push("/EmpLogin");
           }
@@ -138,7 +138,7 @@ export default {
     },
     smallPart(text) {
       return text.slice(0, 80);
-    },
+    }
     // async fetchComplaints() {
     //   axios({
     //     method: "get",
@@ -156,6 +156,6 @@ export default {
     //     url: "http://localhost:3000/complaints"
     //   });
     // }
-  },
+  }
 };
 </script>
