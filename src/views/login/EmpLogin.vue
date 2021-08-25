@@ -24,10 +24,10 @@
           :rules="[rules.password, rules.length(6)]"
           filled
           color="deep-purple"
-          counter="6"
+          
           label="Password"
           style="min-height: 96px"
-          type=""
+          type="password"
         ></v-text-field>
       
         
