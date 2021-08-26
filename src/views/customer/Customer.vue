@@ -121,21 +121,20 @@
 
 <script>
 import axios from "axios";
+import * as cookies from '@/cookies';
+import {variables, checkAuth, separateView} from "@/global";
 export default {
   async created(){
     if(!await checkAuth()){
-      this.$router.push("/employee_login");
+      this.$router.push("/login");
     }
 
-    if(variables.logged_user.type != "employee"){
+    if(variables.logged_user.type != "customer"){
       this.$router.push("/");
     }
 
-    if(variables.logged_user.department != "assistant"){
-      this.$router.push("/");
-    }
-
-    await this.getComplains();
+   
+    
   },
   
   data() {

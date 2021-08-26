@@ -15,7 +15,7 @@
         </div>
       <v-form ref="form" class="pa-4 pt-6">
         <v-text-field
-          v-model="username"
+          v-model="user_name"
           filled
           color="deep-purple"
           label="username"
@@ -73,10 +73,10 @@ export default {
   },
   data(){
     return {
-      username: "",
+      user_name: "",
       password: "",
       rules: {
-        username: v => !!(v || "").match(/@/) || "Please enter a valid username",
+        user_name: v => !!(v || "").match(/@/) || "Please enter a valid username",
         length: len => v =>
           (v || "").length >= len || `Invalid character length, required ${len}`,
         password: v =>
@@ -91,7 +91,7 @@ export default {
   methods: {
     async login(){
       await axios.post("http://localhost:3000/customer_login", {
-        username: this.username,
+        user_name: this.user_name,
         password: this.password
       }).then(response => {
         if(response.data.header.error){
@@ -121,10 +121,7 @@ export default {
           return;
         }
 
-        // showMessage(true, "message_display", "successful");
-        // this.complains = response.data.data;
-        // console.log(response.data.data);
-        // this.complaints = response.data.data;
+        
 
       });
 

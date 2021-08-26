@@ -26,7 +26,7 @@ export function separateView(){
   if(variables.logged_user.department == "admin"){
     return "/admin";
   }
-  else if(variables.logged_user.department == "CustomerService"){
+  else if(variables.logged_user.department == "Customer_Service"){
     return "/Customer_Service";
   }else if(variables.logged_user.department == "OperationMaintenance"){
     return "/Operation_Maintenance";

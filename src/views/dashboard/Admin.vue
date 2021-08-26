@@ -57,6 +57,8 @@
 </template>
 <script>
 import axios from "axios";
+import * as cookies from '@/cookies';
+import {variables, checkAuth, separateView} from "@/global";
 export default {
   name: "Admin",
   async created() {
@@ -73,7 +75,7 @@ export default {
       this.$router.push(link);
     }
 
-    await this.getComplains();
+  
   },
   data() {
     return {

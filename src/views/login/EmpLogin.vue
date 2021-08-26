@@ -59,9 +59,9 @@ export default {
   name: "Login",
   async created(){
     if(await checkAuth()){
-      console.log("logged");
+      //console.log("logged");
 
-      if(variables.logged_user.type == "employee"){
+      if(variables.logged_user.type != "employee"){
         this.$router.push("/customer")
       }else{
         let link = separateView();
@@ -116,14 +116,11 @@ export default {
       await axios.post("http://localhost:3000/logout", { token: token }).then(response => {
 
         if(!response.data.header.error){
-          this.$router.push("/employeelogin");
+          this.$router.push("/EmpLogin");
           return;
         }
 
-        // showMessage(true, "message_display", "successful");
-        // this.complains = response.data.data;
-        // console.log(response.data.data);
-        // this.complaints = response.data.data;
+       
 
       });
 
