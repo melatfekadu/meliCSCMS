@@ -57,26 +57,25 @@
 </template>
 <script>
 import axios from "axios";
-import * as cookies from '@/cookies';
-import {variables, checkAuth, separateView} from "@/global";
+import * as cookies from "@/cookies";
+import { variables, checkAuth, separateView } from "@/global";
 export default {
   name: "Admin",
-  async created() {
-    if (!(await checkAuth())) {
-      this.$router.push("/EmpLogin");
-    }
+  // async created() {
+  //   if (!(await checkAuth())) {
+  //     this.$router.push("/EmpLogin");
+  //   }
 
-    if (variables.logged_user.type != "employee") {
-      this.$router.push("/EmpLogin");
-    }
+  //   if (variables.logged_user.type != "employee") {
+  //     this.$router.push("/EmpLogin");
+  //   }
 
-    if (variables.logged_user.department != "admin") {
-      let link = separateView();
-      this.$router.push(link);
-    }
+  //   if (variables.logged_user.department != "admin") {
+  //     let link = separateView();
+  //     this.$router.push(link);
+  //   }
 
-  
-  },
+  // },
   data() {
     return {
       customers: [],
@@ -91,7 +90,7 @@ export default {
         address: "",
         gender: "",
         user_name: "",
-        password: "",
+        password: ""
       },
       customer_headers: [
         { text: "Id", value: "_id" },
@@ -103,7 +102,7 @@ export default {
         { text: "Gender", value: "gender" },
         { text: "User Name", value: "user_name" },
         { text: "Password", value: "password" },
-        { text: "Action", value: "actions", sortable: false },
+        { text: "Action", value: "actions", sortable: false }
       ],
       employee_headers: [
         { text: "Id", value: "_id" },
@@ -117,14 +116,14 @@ export default {
         { text: "Department", value: "department" },
         { text: "User Name", value: "user_name" },
         { text: "Password", value: "password" },
-        { text: "Action", value: "actions", sortable: false },
-      ],
+        { text: "Action", value: "actions", sortable: false }
+      ]
     };
   },
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    },
+    }
   },
   watch: {
     dialog(val) {
@@ -132,7 +131,7 @@ export default {
     },
     dialogDelete(val) {
       val || this.closeDelete();
-    },
+    }
   },
 
   mounted() {
@@ -140,50 +139,48 @@ export default {
     this.fetchEmployees();
   },
   methods: {
-    async logout(){
-
+    async logout() {
       let token = cookies.get("logged_user");
-      
-      await axios.post("http://localhost:3000/logout", { token: token }).then(response => {
 
-        if(!response.data.header.error){
-          this.$router.push("/employeelogin");
-        }
-
-      });
-
+      await axios
+        .post("http://localhost:3000/logout", { token: token })
+        .then(response => {
+          if (!response.data.header.error) {
+            this.$router.push("/employeelogin");
+          }
+        });
     },
     async fetchCustomers() {
       await axios({
         method: "get",
-        url: "http://localhost:3000/customers",
+        url: "http://localhost:3000/customers"
       })
-        .then((response) => {
+        .then(response => {
           if (!response.data.header.error) {
             this.customers = response.data.data;
             console.log(this.customers);
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
     },
-     async fetchEmployees() {
+    async fetchEmployees() {
       await axios({
         method: "get",
-        url: "http://localhost:3000/employees",
+        url: "http://localhost:3000/employees"
       })
-        .then((response) => {
+        .then(response => {
           if (!response.data.header.error) {
             this.employees = response.data.data;
             console.log(this.employees);
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
     },
-   
+
     editItem(item) {
       this.editedIndex = this.custmers.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -195,16 +192,16 @@ export default {
     deleteItem1(item) {
       axios
         .delete(`http://localhost:3000/customer/${item._id}`)
-        .then((res) => {
+        .then(res => {
           if (res.data.success) {
             this.customers = this.customers.filter(
-              (customer) => customer._id != item._id
+              customer => customer._id != item._id
             );
           } else {
             console.log("not success");
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
     },
@@ -216,16 +213,16 @@ export default {
     deleteItem(item) {
       axios
         .delete(`http://localhost:3000/employee/${item._id}`)
-        .then((res) => {
+        .then(res => {
           if (res.data.success) {
             this.employees = this.employees.filter(
-              (employee) => employee._id != item._id
+              employee => employee._id != item._id
             );
           } else {
             console.log("not success");
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
     },
@@ -233,7 +230,7 @@ export default {
     deleteItemConfirm() {
       this.employees.splice(this.editedIndex, 1);
       this.closeDelete();
-    },
-  },
+    }
+  }
 };
 </script>

@@ -26,6 +26,8 @@
     <v-divider class="mb-2" />
 
     <v-list expand nav>
+      <!-- Style cascading bug  -->
+      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
 
       <template v-for="(item, i) in computedItems">
@@ -36,6 +38,8 @@
         <base-item v-else :key="`item-${i}`" :item="item" />
       </template>
 
+      <!-- Style cascading bug  -->
+      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
     </v-list>
   </v-navigation-drawer>
@@ -57,16 +61,16 @@ export default {
 
   data: () => ({
     items: [
-      {
-        title: "Send Report",
-        icon: "mdi-clipboard-outline",
-        to: "/Sendre"
-      }
       // {
-      //   title: 'notifications',
-      //   icon: 'mdi-bell',
-      //   to: '#',
+      //   title: "Send Report",
+      //   icon: "mdi-message",
+      //   to: "/SendReport"
       // },
+      // {
+      //   title: "Send Bill",
+      //   icon: "mdi-message",
+      //   to: "/SendBill"
+      // }
     ]
   }),
 
