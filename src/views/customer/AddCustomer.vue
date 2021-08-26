@@ -31,7 +31,7 @@
                 </v-col>
 
                 <v-col cols="12" md="4">
-                  <v-text-field v-model="gender" label="Gender" class="purple-input" />
+                  <v-select v-model="gender" :items="items" label="Gender" class="purple-input" />
                 </v-col>
                 <v-col cols="12" md="4">
                   <v-text-field
@@ -69,7 +69,12 @@ export default {
       email: "",
       phone_no: "",
       address: "",
-      gender: "",
+      gender: null,
+      items: [
+        'Female',
+        'Male'
+      ],
+
       user_name: "",
       password: ""
     };

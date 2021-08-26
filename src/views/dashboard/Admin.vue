@@ -141,12 +141,14 @@ export default {
   methods: {
     async logout() {
       let token = cookies.get("logged_user");
-
+      //console.log(token);
       await axios
         .post("http://localhost:3000/logout", { token: token })
         .then(response => {
           if (!response.data.header.error) {
-            this.$router.push("/employeelogin");
+            cookies.remove("logged_user");
+            variables.logged_user = {};
+            this.$router.push("/EmpLogin");
           }
         });
     },
@@ -156,10 +158,8 @@ export default {
         url: "http://localhost:3000/customers"
       })
         .then(response => {
-          if (!response.data.header.error) {
-            this.customers = response.data.data;
-            console.log(this.customers);
-          }
+          this.customers = response.data;
+          console.log(this.customers);
         })
         .catch(error => {
           console.error(error);
@@ -171,10 +171,8 @@ export default {
         url: "http://localhost:3000/employees"
       })
         .then(response => {
-          if (!response.data.header.error) {
-            this.employees = response.data.data;
-            console.log(this.employees);
-          }
+          this.employees = response.data;
+          console.log(this.employees);
         })
         .catch(error => {
           console.error(error);
@@ -182,7 +180,7 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.custmers.indexOf(item);
+      this.editedIndex = this.customers.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
 

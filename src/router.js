@@ -185,6 +185,11 @@ export default new Router({
           path: '/completed',
           component: () => import('@/views/manager/completed'),
         },
+        {
+          name: 'ratings',
+          path: '/ratings',
+          component: () => import('@/views/manager/ratings'),
+        },
       ]
     },
     {
@@ -251,12 +256,12 @@ export default new Router({
       ]
     },
     {
-      name: 'CaseWorker',
-      path: '/CaseWorker',
+      name: 'caseworker',
+      path: '/caseworker',
       component: () => import('@/views/case_worker/Index'),
       children: [
         {
-          name: 'CaseWorker',
+          name: 'caseworker',
           path: '/',
           component: () => import('@/views/case_worker/CaseWorker'),
         },

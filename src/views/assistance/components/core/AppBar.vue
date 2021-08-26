@@ -1,6 +1,19 @@
 <template>
-  <v-app-bar id="app-bar" absolute app color="transparent" flat height="75">
-    <v-btn class="mr-3" elevation="1" fab small @click="setDrawer(!drawer)">
+  <v-app-bar
+    id="app-bar"
+    absolute
+    app
+    color="transparent"
+    flat
+    height="75"
+  >
+    <v-btn
+      class="mr-3"
+      elevation="1"
+      fab
+      small
+      @click="setDrawer(!drawer)"
+    >
       <v-icon v-if="value">
         mdi-view-quilt
       </v-icon>
@@ -17,9 +30,35 @@
 
     <v-spacer />
 
+    <v-text-field
+      :label="$t('search')"
+      color="secondary"
+      hide-details
+      style="max-width: 165px;"
+    >
+      <template
+        v-if="$vuetify.breakpoint.mdAndUp"
+        v-slot:append-outer
+      >
+        <v-btn
+          class="mt-n2"
+          elevation="1"
+          fab
+          small
+        >
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+      </template>
+    </v-text-field>
+
     <div class="mx-3" />
 
-    <v-btn class="ml-2" min-width="0" text to="/">
+    <v-btn
+      class="ml-2"
+      min-width="0"
+      text
+      to="/"
+    >
       <v-icon>mdi-view-dashboard</v-icon>
     </v-btn>
 
@@ -31,8 +70,18 @@
       transition="scale-transition"
     >
       <template v-slot:activator="{ attrs, on }">
-        <v-btn class="ml-2" min-width="0" text v-bind="attrs" v-on="on">
-          <v-badge color="red" overlap bordered>
+        <v-btn
+          class="ml-2"
+          min-width="0"
+          text
+          v-bind="attrs"
+          v-on="on"
+        >
+          <v-badge
+            color="red"
+            overlap
+            bordered
+          >
             <template v-slot:badge>
               <span>5</span>
             </template>
@@ -42,16 +91,28 @@
         </v-btn>
       </template>
 
-      <v-list :tile="false" nav>
+      <v-list
+        :tile="false"
+        nav
+      >
         <div>
-          <app-bar-item v-for="(n, i) in notifications" :key="`item-${i}`">
+          <app-bar-item
+            v-for="(n, i) in notifications"
+            :key="`item-${i}`"
+          >
             <v-list-item-title v-text="n" />
           </app-bar-item>
         </div>
       </v-list>
     </v-menu>
 
-   
+    <v-btn
+      class="ml-2"
+      min-width="0"
+      text
+      to="/pages/user"
+    >
+      <v-icon>mdi-account</v-icon>
     </v-btn>
     <v-btn
       @click="logout()"
@@ -87,11 +148,11 @@ import { variables, separateView, checkAuth } from "@/global";
                 return h(VListItem, {
                   attrs: this.$attrs,
                   class: {
-                    "black--text": !hover,
-                    "white--text secondary elevation-12": hover
+                    'black--text': !hover,
+                    'white--text secondary elevation-12': hover,
                   },
                   props: {
-                    activeClass: "",
+                    activeClass: '',
                     dark: hover,
                     link: true,
                     ...this.$attrs,
@@ -143,7 +204,7 @@ import { variables, separateView, checkAuth } from "@/global";
       ...mapMutations({
         setDrawer: 'SET_DRAWER',
       }),
+      
     },
   }
-
 </script>

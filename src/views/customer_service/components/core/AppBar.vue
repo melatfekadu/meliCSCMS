@@ -1,13 +1,9 @@
 <template>
   <v-app-bar id="app-bar" absolute app color="transparent" flat height="75">
     <v-btn class="mr-3" elevation="1" fab small @click="setDrawer(!drawer)">
-      <v-icon v-if="value">
-        mdi-view-quilt
-      </v-icon>
+      <v-icon v-if="value"> mdi-view-quilt </v-icon>
 
-      <v-icon v-else>
-        mdi-dots-vertical
-      </v-icon>
+      <v-icon v-else> mdi-dots-vertical </v-icon>
     </v-btn>
 
     <v-toolbar-title
@@ -17,9 +13,22 @@
 
     <v-spacer />
 
+    <v-text-field
+      :label="$t('search')"
+      color="secondary"
+      hide-details
+      style="max-width: 165px"
+    >
+      <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:append-outer>
+        <v-btn class="mt-n2" elevation="1" fab small>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+      </template>
+    </v-text-field>
+
     <div class="mx-3" />
 
-    <v-btn class="ml-2" min-width="0" text to="/customer_service">
+    <v-btn class="ml-2" min-width="0" text to="/">
       <v-icon>mdi-view-dashboard</v-icon>
     </v-btn>
 
@@ -34,7 +43,7 @@
         <v-btn class="ml-2" min-width="0" text v-bind="attrs" v-on="on">
           <v-badge color="red" overlap bordered>
             <template v-slot:badge>
-              <span>5</span>
+              <span>{{ notification_size }}</span>
             </template>
 
             <v-icon>mdi-bell</v-icon>
@@ -51,6 +60,9 @@
       </v-list>
     </v-menu>
 
+    <v-btn class="ml-2" min-width="0" text to="/pages/user">
+      <v-icon>mdi-account</v-icon>
+    </v-btn>
     <v-btn @click="logout()" class="ml-2" min-width="0" text>
       logout
       <v-icon>mdi-logout</v-icon>
@@ -109,20 +121,35 @@ export default {
   },
 
   data: () => ({
-    notifications: [
-      "Mike John Responded to your email",
-      "You have 5 new tasks",
-      "You're now friends with Andrew",
-      "Another Notification",
-      "Another one"
-    ]
+    notifications: ["You got new complaint."],
+    notification_size: 0
   }),
 
   computed: {
     ...mapState(["drawer"])
   },
 
+  created() {
+    this.notification_mtd();
+  },
+
   methods: {
+    async notification_mtd() {
+      await axios.get("http://localhost:3000/complaints2").then(response => {
+        //console.log(response.data);
+        this.notification_size = response.data.length;
+        let count = 0;
+
+        for (let i = 0; i < this.notification_size; i++) {
+          this.notifications[count] = response.data[i].select;
+          count += 1;
+        }
+
+        console.log(this.notifications);
+
+        //console.log(response.data);
+      });
+    },
     async logout() {
       let token = cookies.get("logged_user");
 
@@ -130,6 +157,9 @@ export default {
         .post("http://localhost:3000/logout", { token: token })
         .then(response => {
           if (!response.data.header.error) {
+            cookies.remove("logged_user");
+            //variables.logged_user = {};
+            variables.logged_user = null;
             this.$router.push("/EmpLogin");
           }
         });
