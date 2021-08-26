@@ -1,9 +1,6 @@
 <template>
   <v-container id="assistance" fluid tag="section">
-    <!-- <CustomerServiceDrawer />
-    <CustomerServiceAppBar />
-    <CustomerServiceView />
-    <CustomerServiceSettings /> -->
+   
     <v-row>
       <v-col cols="12" md="11">
         <base-material-card class="px-5 py-3">
@@ -18,7 +15,7 @@
           </template>
 
           <v-tabs-items v-model="tabs" class="transparent">
-            <v-list v-for="(complaint, index) in CustomerService" :key="index">
+            <v-list v-for="(complaint, index) in complaints" :key="index">
               <v-list-item>
                 <v-col cols="1">
                   <v-list-item-action>
@@ -46,6 +43,16 @@
                       >Address: {{ complaint.address }}</small
                     >
                   </v-col>
+                  <div
+                      style="
+                        font-family: sans-serif;
+                        font-size: 20px;
+                        font-weight: lighter;
+                        margin-bottom: 0;
+                      "
+                    >
+                      {{ complaint.select }}
+                    </div>
                   <v-col cols="12">
                     {{ smallPart(complaint.description) }}
                     <router-link :to="'subComplaint/' + complaint._id"
@@ -95,67 +102,45 @@ export default {
       tasks: [],
     };
   },
-  computed: {
-    CustomerService() {
-      return this.complaints.filter((comp) => comp.type == "CustomerService");
-    },
-  },
+ 
   mounted() {
     this.fetchComplaints();
   },
   methods: {
     async fetchComplaints() {
-      let token = cookies.get("logged_user");
+      
       axios({
         method: "get",
-        url: "http://localhost:3000/complaints/"+token,
+        url: "http://localhost:3000/complaints2",
       })
         .then((response) => {
-          if (!response.data.header.error) {
-            this.complaints = response.data.data;
-          }
+          this.complaints=response.data;
+          console.log(this.complaints);
 
-          //console.log(this.complaints);
+          
         })
         .catch((error) => {
           console.error(error);
         });
-      // axios({
-      //   method: "put",
-      //   url: "http://localhost:3000/complaints",
-      // });
+      
     },
     async logout() {
       let token = cookies.get("logged_user");
-
+      //console.log(token);
       await axios
         .post("http://localhost:3000/logout", { token: token })
         .then((response) => {
           if (!response.data.header.error) {
+            cookies.remove("logged_user");
+            variables.logged_user = {};
             this.$router.push("/EmpLogin");
           }
         });
-    },
+     },
     smallPart(text) {
       return text.slice(0, 80);
     },
-    // async fetchComplaints() {
-    //   axios({
-    //     method: "get",
-    //     url: "http://localhost:3000/complaints"
-    //   })
-    //     .then(response => {
-    //       this.complaints = response.data;
-    //       console.log(this.complaints);
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    //   axios({
-    //     method: "put",
-    //     url: "http://localhost:3000/complaints"
-    //   });
-    // }
+    
   },
 };
 </script>

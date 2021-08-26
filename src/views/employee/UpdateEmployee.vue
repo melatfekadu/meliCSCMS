@@ -229,27 +229,9 @@ export default {
 console.log("newEmployee", newEmployee);
       axios
         .put(`http://localhost:3000/employee/${this.$route.params.id}`, newEmployee)
-        //       return axios({
-        //         method: 'post',
-        //           data: {
-
-        //       },
-        //    url: 'http://localhost:3000/customers',
-        //     headers: {
-        //        'main-Type': 'application/json',
-        //       },
-        //     })
+        
         .then(() => {
-        //   this.$swal(
-        //     'Great!',
-        //     'customer added successfully',
-        //     'success',
-        //   ),
-        //   this.get('/customers', (req,res)=>{
-        //     res.render('/')
-        //   })
-        // .t
-          // this.$router.push({ path: "/" });
+          this.$router.push({ path: "/admin"})
           this.$refs.form.reset();
         })
         .catch((err) => {

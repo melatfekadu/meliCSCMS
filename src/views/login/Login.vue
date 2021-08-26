@@ -27,7 +27,7 @@
       </v-form>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn color="success" @click="login">Login</v-btn>
+        <v-btn color="success" @click="login(); $refs.form.reset();">Login</v-btn>
 
         <v-spacer></v-spacer>
       </v-card-actions>
@@ -45,7 +45,7 @@ import * as cookies from '@/cookies';
 import {variables, checkAuth, separateView} from "@/global";
 
 export default {
-  name: "Login",
+
   async created(){
     if(await checkAuth()){
 

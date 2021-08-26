@@ -34,8 +34,8 @@
                     >Address: {{complaint.address}}</small>
                   </v-col>
                   <v-col cols="12">
-                    {{smallPart(complaint.description)}}
-                    <router-link :to="'Complaints/'+complaint._id">read more</router-link>
+                    {{complaint.description}}
+                   <!-- <router-link :to="'Complaints/'+complaint._id">read more</router-link> -->
                   </v-col>
                   <v-col cols="12">Date: {{complaint.date}}</v-col>
                 </v-col>

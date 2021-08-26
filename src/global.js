@@ -2,7 +2,8 @@ import * as cookies from "./cookies.js";
 import axios from "axios";
 
 export let variables = {
-  logged_user: null
+  logged_user: null,
+  host_address: "http://localhost:3000"
 }
 
 export function separateView(){
@@ -28,10 +29,12 @@ export function separateView(){
   }
   else if(variables.logged_user.department == "Customer_Service"){
     return "/Customer_Service";
-  }else if(variables.logged_user.department == "OperationMaintenance"){
+  }else if(variables.logged_user.department == "Operation_Maintenance"){
     return "/Operation_Maintenance";
   }else if(variables.logged_user.department == "manager"){
     return "/manager";
+  }else if(variables.logged_user.department == "Assistance"){
+    return "/Assistance";
   }else if(
     variables.logged_user.department == "inspection" ||
     variables.logged_user.department == "emergency" ||
@@ -42,7 +45,7 @@ export function separateView(){
     variables.logged_user.department == "prev_main" ||
     variables.logged_user.department == "emp_comp"
   ){
-    return "/CaseWorker";
+    return "/caseworker";
   }
 
 }
@@ -55,7 +58,7 @@ export async function checkAuth(){
 
     if(token){
 
-      await axios.post("http://localhost:3000/auth_info", {
+      await axios.post("http://localhost:3000/auth_info"+token, {
         token: token
       }).then(response => {
 

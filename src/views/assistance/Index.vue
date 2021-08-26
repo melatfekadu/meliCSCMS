@@ -18,11 +18,11 @@
     name: 'AssistanceIndex',
 
     components: {
-      DashboardCoreAppBar: () => import('../customer/components/core/AppBar'),
-      DashboardCoreDrawer: () => import('../customer/components/core/Drawer'),
-      DashboardCoreSettings: () => import('../customer/components/core/Settings'),
-      DashboardCoreView: () => import('../customer/components/core/View'),
-      DashboardCoreFooter: () => import('../customer/components/core/Footer'),
+      DashboardCoreAppBar: () => import('../assistance/components/core/AppBar'),
+      DashboardCoreDrawer: () => import('../assistance/components/core/Drawer'),
+      DashboardCoreSettings: () => import('../assistance/components/core/Settings'),
+      DashboardCoreView: () => import('../assistance/components/core/View'),
+      DashboardCoreFooter: () => import('../assistance/components/core/Footer'),
     },
 
     data: () => ({

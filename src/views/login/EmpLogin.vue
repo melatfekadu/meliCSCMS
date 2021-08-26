@@ -34,7 +34,7 @@
       </v-form>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn color="success" @click="login">
+        <v-btn color="success" @click="login()">
           Login
         </v-btn>
 
@@ -59,7 +59,7 @@ export default {
   name: "Login",
   async created(){
     if(await checkAuth()){
-      //console.log("logged");
+      console.log("logged");
 
       if(variables.logged_user.type != "employee"){
         this.$router.push("/customer")
@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     async login(){
-      await axios.post("http://localhost:3000/employee_login", {
+      await axios.post("http://localhost:3000/EmpLogin", {
         email: this.email,
         password: this.password
       }).then(response => {
