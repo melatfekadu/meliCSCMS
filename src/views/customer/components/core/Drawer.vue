@@ -92,115 +92,81 @@
 </template>
 
 <script>
-  // Utilities
-  import {mapState,} from 'vuex'
-  import axios from 'axios'
-  export default {
-    name: 'AdminCoreDrawer',
+// Utilities
+import { mapState } from "vuex";
+import axios from "axios";
+export default {
+  name: "AdminCoreDrawer",
 
-    props: {
-      expandOnHover: {
-        type: Boolean,
-        default: false,
-      },
+  props: {
+    expandOnHover: {
+      type: Boolean,
+      default: false
+    },
 
     data: () => ({
-
-            bills: [],
-            dialog: false,
+      bills: [],
+      dialog: false,
       items: [
         {
-          icon: 'mdi-view-dashboard',
-          title: 'Register Complaint',
-          to: '/customer',
-        },
-
-
-        {
-          icon: 'mdi-account',
-          title: 'Status',
-          to: '/status',
+          icon: "mdi-view-dashboard",
+          title: "Register Complaint",
+          to: "/customer"
         },
 
         {
-          title: 'Notification',
-          icon: 'mdi-bell',
-          to: '',
+          icon: "mdi-account",
+          title: "Status",
+          to: "/status"
         },
-      ],
+
+        {
+          title: "Notification",
+          icon: "mdi-bell",
+          to: ""
+        }
+      ]
     }),
 
     computed: {
-      ...mapState(['barColor', 'barImage']),
+      ...mapState(["barColor", "barImage"]),
       drawer: {
-        get () {
-          return this.$store.state.drawer
+        get() {
+          return this.$store.state.drawer;
         },
-        set (val) {
-          this.$store.commit('SET_DRAWER', val)
-        },
+        set(val) {
+          this.$store.commit("SET_DRAWER", val);
+        }
       },
-      computedItems () {
-        return this.items.map(this.mapItem)
-      },
-      {
-        icon: "mdi-account",
-        title: "Status",
-        to: "/status"
-      }
-    ]
-  }),
-
-  computed: {
-    ...mapState(["barColor", "barImage"]),
-    drawer: {
-      get() {
-        return this.$store.state.drawer;
-      },
-      set(val) {
-        this.$store.commit("SET_DRAWER", val);
+      computedItems() {
+        return this.items.map(this.mapItem);
       }
     },
- mounted() {
-    this.fetchBills();
-     },
+
+    mounted() {
+      this.fetchBills();
+    },
     methods: {
       async fetchBills() {
-         axios({
-        method: "get",
-        url: "http://localhost:3000/bills"
-      })
-        .then(response => {
-          this.bills = response.data;
-          console.log(this.bills);
+        axios({
+          method: "get",
+          url: "http://localhost:3000/bills"
         })
-        .catch(error => {
-          console.error(error);
-        });
+          .then(response => {
+            this.bills = response.data;
+            console.log(this.bills);
+          })
+          .catch(error => {
+            console.error(error);
+          });
       },
-      mapItem (item) {
+      mapItem(item) {
         return {
           ...item,
           children: item.children ? item.children.map(this.mapItem) : undefined,
-          title: this.$t(item.title),
-        }
-      },
-    },
-    profile() {
-      return {
-        avatar: true,
-        title: this.$t("avatar")
-      };
-    }
-  },
-
-  methods: {
-    mapItem(item) {
-      return {
-        ...item,
-        children: item.children ? item.children.map(this.mapItem) : undefined,
-        title: this.$t(item.title)
-      };
+          title: this.$t(item.title)
+        };
+      }
     }
   }
 };
