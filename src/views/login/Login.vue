@@ -2,17 +2,11 @@
 <template>
   <v-container class="my-8">
     <v-card class="mx-auto mp-auto" style="max-width: 400px;">
-      
-
       <v-toolbar color="blue(grey)-4" cards dark flat>
-        <v-card-title class="text-h6 font-weight-regular">
-          Login
-        </v-card-title>
+        <v-card-title class="text-h6 font-weight-regular">Login</v-card-title>
         <v-spacer></v-spacer>
       </v-toolbar>
-      <div id="error_message" style="display: none;" class="alert alert-danger">
-          error occurred
-        </div>
+      <div id="error_message" style="display: none;" class="alert alert-danger">error occurred</div>
       <v-form ref="form" class="pa-4 pt-6">
         <v-text-field
           v-model="user_name"
@@ -30,22 +24,16 @@
           style="min-height: 96px"
           type="password"
         ></v-text-field>
-      
-        
       </v-form>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn color="success" @click="login">
-          Login
-        </v-btn>
+        <v-btn color="success" @click="login">Login</v-btn>
 
         <v-spacer></v-spacer>
       </v-card-actions>
-      <v-dialog  absolute max-width="400" persistent>
+      <v-dialog absolute max-width="400" persistent>
         <v-card>
-          <v-card-actions>
-            
-          </v-card-actions>
+          <v-card-actions></v-card-actions>
         </v-card>
       </v-dialog>
     </v-card>
@@ -78,15 +66,16 @@ export default {
       rules: {
         user_name: v => !!(v || "").match(/@/) || "Please enter a valid username",
         length: len => v =>
-          (v || "").length >= len || `Invalid character length, required ${len}`,
+          (v || "").length >= len ||
+          `Invalid character length, required ${len}`,
         password: v =>
           !!(v || "").match(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
           ) ||
           "Password must contain an upper case letter, a numeric character, and a special character",
         required: v => !!v || "rest ur password if forgot"
-      },
-    }
+      }
+    };
   },
   methods: {
     async login(){
@@ -101,15 +90,13 @@ export default {
           return;
         }
 
-        cookies.set("logged_user", response.data.data.token);
-        variables.logged_user = response.data.data;
-        console.log(response.data.data);
-        this.$router.push("/customer");
-
-      });
+          cookies.set("logged_user", response.data.data.token);
+          variables.logged_user = response.data.data;
+          console.log(response.data.data);
+          this.$router.push("/customer");
+        });
     },
-    async logout(){
-
+    async logout() {
       let token = cookies.get("logged_user");
       //console.log(token);
       await axios.post("http://localhost:3000/logout", { token: token }).then(response => {
@@ -127,5 +114,5 @@ export default {
 
     }
   }
-}
+};
 </script>
