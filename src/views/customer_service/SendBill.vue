@@ -106,11 +106,11 @@ export default {
         .post("http://localhost:3000/bills", newBill)
        
         .then(() => {
-          this.get('/bills', (req,res)=>{
-            
-          })
           this.$router.push({ path: "/Customer_Service" });
           this.$refs.form.reset();
+          this.get('/bills', (req,res)=>{ 
+          })
+          
         })
         .catch((err) => {
           console.log(err);

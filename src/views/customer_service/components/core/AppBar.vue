@@ -114,13 +114,8 @@
     >
       <v-icon>mdi-account</v-icon>
     </v-btn>
-    <v-btn
-      @click="logout"
-      class="ml-2"
-      min-width="0"
-      text
-      to="/EmpLogin"
-    >
+    <v-btn @click="logout()" class="ml-2" min-width="0" text>
+      logout
       <v-icon>mdi-logout</v-icon>
     </v-btn>
   </v-app-bar>
@@ -132,6 +127,9 @@
 
   // Utilities
   import { mapState, mapMutations } from 'vuex'
+  import axios from "axios";
+import * as cookies from '@/cookies';
+import {variables,separateView,checkAuth} from "@/global";
 
   export default {
     name: 'DashboardCoreAppBar',
@@ -184,6 +182,19 @@
     },
 
     methods: {
+       async logout(){
+
+      let token = cookies.get("logged_user");
+      
+      await axios.post("http://localhost:3000/logout", { token: token }).then(response => {
+
+        if(!response.data.header.error){
+          this.$router.push("/EmpLogin");
+        }
+
+      });
+
+    },
       ...mapMutations({
         setDrawer: 'SET_DRAWER',
       }),
