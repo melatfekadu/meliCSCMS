@@ -45,12 +45,16 @@
         label="Location"
         required
       ></v-text-field>
-
+       <v-text-field
+        v-model="department"
+        label="Department"
+        required
+      ></v-text-field>
       <v-select
         v-model="select"
         :items="items"
         
-        label="Case"
+        label="case"
         required
       ></v-select>
       <v-textarea
@@ -85,7 +89,11 @@ export default {
     
     location:"",
     select: null,
-    items: ['CustomerService', 'OperationMaintenance', 'Manager'],
+    items: [
+      'Trasformer Burning',
+      'Fire',
+      'Falldown'
+      ],
     description:"",
   }),
 
@@ -101,6 +109,7 @@ export default {
         email: this.email,
         phone_no: this.phone_no,
         location: this.location,
+        department: this.department,
         select: this.select,
         description: this.description,
       };

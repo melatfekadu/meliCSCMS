@@ -9,7 +9,9 @@
               <v-tab class="mr-3">
                 Complaints
               </v-tab>
-              
+              <v-tab class="mr-3" to='/NonCustomerReport'>
+                Non Customer Reports
+              </v-tab>
             </v-tabs>
           </template>
 
@@ -45,6 +47,8 @@
               </v-list-item>
             </v-list>
           </v-tabs-items>
+          
+          
         </base-material-card>
       </v-col>
     </v-row>
@@ -90,6 +94,7 @@ export default {
   // },
   mounted() {
     this.fetchComplaints();
+    this.fetchEmergencys();
   },
   methods: {
      
@@ -114,6 +119,23 @@ export default {
         url: "http://localhost:3000/complaints"
       });
     },
+    async fetchEmergencys() {
+      axios({
+        method: "get",
+        url: "http://localhost:3000/emergencys"
+      })
+        .then(response => {
+          this.emergencys = response.data;
+          console.log(this.emergencys);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+      axios({
+        method: "put",
+        url: "http://localhost:3000/emergencys"
+      });
+    }
     
   }
 };

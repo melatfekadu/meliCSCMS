@@ -187,11 +187,7 @@ export default new Router({
           path: '/',
           component: () => import('@/views/assistance/Assistance'),
         },
-        {
-          name: 'NonCustomerReport',
-          path: '/NonCustomerReport',
-          component: () => import('@/views/assistance/NonCustomerReport'),
-        },
+        
 
       ]
     },
@@ -232,6 +228,11 @@ export default new Router({
           name: 'Warnings',
           path: '/warning/Warnings',
           component: () => import('@/views/case_worker/warning/Warnings'),
+        },
+        {
+          name: 'NonCustomerReport',
+          path: '/NonCustomerReport',
+          component: () => import('@/views/Operation_Maintenance/NonCustomerReport'),
         },
       ]
     },
