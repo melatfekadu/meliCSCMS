@@ -35,7 +35,7 @@
                         margin-bottom: 0;
                       "
                     >
-                      {{ complaint.user_name }}
+                     User_name:  {{ complaint.user_name }}
                     </div>
                     <small
                       style="
@@ -45,10 +45,22 @@
                       "
                       >Address: {{ complaint.address }}</small
                     >
+                     <div
+                      style="
+                        font-family: sans-serif;
+                        font-size: 20px;
+                        font-weight: lighter;
+                        margin-bottom: 0;
+                      "
+                    >
+                      {{ complaint.select }}
+                    </div>
                   </v-col>
+
                   <v-col cols="12">
                     {{ smallPart(complaint.description) }}
                     <router-link :to="'Complaints/' + complaint._id"
+              
                       >read more</router-link
                     >
                   </v-col>
@@ -65,9 +77,26 @@
 
 <script>
 import axios from "axios";
+import * as cookies from "@/cookies";
+import { variables, checkAuth, separateView } from "@/global";
 export default {
   name: "Assistance",
+    async created() {
+    if (!(await checkAuth())) {
+      this.$router.push("/EmpLogin");
+    }
 
+    if (variables.logged_user.type != "employee") {
+      this.$router.push("/EmpLogin");
+    }
+
+    if (variables.logged_user.department != "Assistance") {
+      let link = separateView();
+      this.$router.push(link);
+    }
+
+    await this.fetchComplaints();
+  },
   data() {
     return {
       complaints: [],
@@ -88,7 +117,7 @@ export default {
     async fetchComplaints() {
       axios({
         method: "get",
-        url: "http://localhost:3000/complaints",
+        url: "http://localhost:3000/complaints1",
       })
         .then((response) => {
           this.complaints = response.data;
@@ -97,10 +126,7 @@ export default {
         .catch((error) => {
           console.error(error);
         });
-      axios({
-        method: "put",
-        url: "http://localhost:3000/complaints",
-      });
+      
     },
   },
 };

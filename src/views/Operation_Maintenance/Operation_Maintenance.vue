@@ -1,9 +1,6 @@
 <template>
   <v-container id="assistance" fluid tag="section">
-    <!-- <OperationMaintenanceDrawer />
-    <OperationMaintenanceAppBar />
-    <OperationMaintenanceSettings />
-    <OperationMaintenanceView /> -->
+   
     <v-row>
       <v-col cols="12" md="11">
         <base-material-card class="px-5 py-3">
@@ -12,17 +9,12 @@
               <v-tab class="mr-3">
                 Complaints
               </v-tab>
-              <v-tab class="mr-3" >
-                Warning
-              </v-tab>
-              <v-tab class="mr-3">
-                Status
-              </v-tab>
+              
             </v-tabs>
           </template>
 
           <v-tabs-items v-model="tabs" class="transparent">
-            <v-list v-for="(complaint, index) in OperationMaintenance" :key="index">
+            <v-list v-for="(complaint, index) in complaints" :key="index">
               <v-list-item>
                 <v-col cols="1">
                   <v-list-item-action>
@@ -32,8 +24,14 @@
                 <v-col class cols="12">
                   <v-col cols="12">
                     <div
-                      style="font-family: sans-serif; font-size: 20px; font-weight: lighter; margin-bottom: 0;"
-                    >{{complaint.user_name}}</div>
+                      style="font-family: sans-serif; font-size: 15px; font-weight: lighter; margin-bottom: 0;"
+                    >User_name: {{complaint.user_name}}</div>
+                  </v-col>
+                    <v-col cols="12">
+                    <div
+                      style="font-family: sans-serif; font-size: 15px; font-weight: lighter; margin-bottom: 0;"
+                    >Complaint: {{complaint.select}}</div>
+                    
                     <small
                       style="font-family: sans-serif; color: #333333; margine-top: 0;"
                     >Address: {{complaint.address}}</small>
@@ -55,9 +53,26 @@
 
 <script>
 import axios from "axios";
+import * as cookies from "@/cookies";
+import { variables, checkAuth, separateView } from "@/global";
 export default {
-  name: "customerService",
+  name: "Operation_Maintenance",
+  async created() {
+    if (!(await checkAuth())) {
+      this.$router.push("/EmpLogin");
+    }
 
+    if (variables.logged_user.type != "employee") {
+      this.$router.push("/EmpLogin");
+    }
+
+    if (variables.logged_user.department != "Operation_Maintenance") {
+      let link = separateView();
+      this.$router.push(link);
+    }
+
+    await this.fetchComplaints();
+  },
   data() {
     return {
       complaints: [],
@@ -68,22 +83,23 @@ export default {
       tasks: []
     };
   },
-  computed:{
-    OperationMaintenance(){
-    return this.complaints.filter(comp=>comp.type=="OperationMaintenance")
-   }
-  },
+  // computed:{
+  //   OperationMaintenance(){
+  //   return this.complaints.filter(comp=>comp.type=="OperationMaintenance")
+  //  }
+  // },
   mounted() {
     this.fetchComplaints();
   },
   methods: {
+     
     smallPart(text) {
       return text.slice(0, 80);
     },
     async fetchComplaints() {
       axios({
         method: "get",
-        url: "http://localhost:3000/complaints"
+        url: "http://localhost:3000/complaints3"
       })
         .then(response => {
           this.complaints = response.data;
@@ -97,7 +113,8 @@ export default {
         method: "put",
         url: "http://localhost:3000/complaints"
       });
-    }
+    },
+    
   }
 };
 </script>

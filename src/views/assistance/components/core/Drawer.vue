@@ -25,7 +25,23 @@
       nav
     >
       <v-list-item>
-         <div class="v-list-item__title text-h4">CSCMS</div> 
+        <v-list-item-avatar
+          class="align-self-center"
+          color="white"
+          contain
+        >
+          <v-img
+            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
+            max-height="30"
+          />
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title
+            class="text-h4"
+            v-text="profile.title"
+          />
+        </v-list-item-content>
       </v-list-item>
     </v-list>
 
@@ -59,68 +75,15 @@
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
     </v-list>
-     <v-dialog
-      v-model="dialog"
-      width="500"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn text class="mx-14"
-          color="white"
-          v-bind="attrs"
-          v-on="on"
-        >
-          View Bill
-        </v-btn>
-      </template>
-
-      <v-card>
-        <data-table>
-        <v-card-title class="text-h5 grey lighten-2">
-          Bill Report
-        </v-card-title>
-         <v-list v-for="(bill, index) in bills" :key="index">
-        <v-list-item>
-          <div
-             style="font-family: sans-serif; font-size: 17px; font-weight: lighter; margin-bottom: 0;"
-            > Date :{{bill.date}}</div>
-        </v-list-item>
-         <v-list-item>
-         <div
-             style="font-family: sans-serif; font-size: 17px; font-weight: lighter; margin-bottom: 0;"
-            > Service_Charge :{{bill.service_charge}}</div>
-            </v-list-item>
-         <v-list-item>
-            <div
-             style="font-family: sans-serif; font-size: 17px; font-weight: lighter; margin-bottom: 0;"
-            >  Payment_Date :{{bill.payment_date}}</div>
-         </v-list-item>
-         
-
-        
-         </v-list>
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="dialog= false"
-          >
-            ok
-          </v-btn>
-        </v-card-actions>
-        
-        </data-table>
-      </v-card>
-    </v-dialog>
   </v-navigation-drawer>
 </template>
 
 <script>
   // Utilities
-  import {mapState,} from 'vuex'
-  import axios from 'axios'
+  import {
+    mapState,
+  } from 'vuex'
+
   export default {
     name: 'AdminCoreDrawer',
 
@@ -132,27 +95,21 @@
     },
 
     data: () => ({
-      
-            bills: [],
-            dialog: false,
       items: [
         {
           icon: 'mdi-view-dashboard',
-          title: 'Register Complaint',
-          to: '/customer',
+          title: 'Manager',
+          to: '/Admin',
         },
-     
-         
         {
-          icon: 'mdi-account',
-          title: 'Status',
-          to: '/status',
-        },
-    
-        {
-          title: 'Notification',
-          icon: 'mdi-bell',
+          title: 'View Rport',
+          icon: 'mdi-clipboard-outline',
           to: '',
+        },
+        {
+          title: 'notifications',
+          icon: 'mdi-bell',
+          to: '/components/notifications',
         },
       ],
     }),
@@ -177,23 +134,8 @@
         }
       },
     },
- mounted() {
-    this.fetchBills();
-     },
+
     methods: {
-      async fetchBills() {
-         axios({
-        method: "get",
-        url: "http://localhost:3000/bills"
-      })
-        .then(response => {
-          this.bills = response.data;
-          console.log(this.bills);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-      },
       mapItem (item) {
         return {
           ...item,

@@ -19,8 +19,9 @@
               <v-tab class="mr-3" to="/completed">
                 Completed
               </v-tab>
-              <v-tab class="mr-3">
+              <v-tab class="mr-3" to="/ratings"> 
                 Ratings
+                
               </v-tab>
             </v-tabs>
           </template>
@@ -76,21 +77,18 @@ export default {
   },
   async created(){
   if (!await checkAuth()){
-    this.$router.push("/EmpLo");
+    this.$router.push("/EmpLogin");
   }
 
   if(await variables.logged_user.type != "employee"){
-    this.$router.push("/");
+    this.$router.push("/EmpLogin");
   }
 
   if(await variables.logged_user.department != "manager"){
     let link = separateView();
     this.$router.push(link);
   }
-  if(await variables.logged_user.department == "manager"){
-    let link = separateView();
-    this.$router.push("/manager");
-  }
+  
 
 },
 

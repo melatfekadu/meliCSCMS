@@ -27,7 +27,7 @@
             </template>
           </v-select>
           <v-btn  class="mx-2" fab dark color="indigo" @click="update">
-            Update
+            Send
           </v-btn>
         </v-list-item>
       </v-col>
@@ -68,7 +68,7 @@ export default {
         let types = {
             "OperationalMentenance": "OperationMaintenance",
             'CustomerService': "CustomerService",
-            'Manager': "Manager",
+          
             
         };
         
