@@ -81,6 +81,7 @@ export default {
         url: "http://localhost:3000/emergencys"
       })
         .then(response => {
+          
           this.emergencys = response.data;
           console.log(this.emergencys);
         })

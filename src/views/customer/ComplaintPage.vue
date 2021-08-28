@@ -211,10 +211,7 @@
                   />
                 </v-col>
 
-                <v-col cols="12" class="text-left">
-                  <v-btn color="success" class="mr-0"> upload file </v-btn>
-                </v-col>
-
+                
                 <v-col cols="12" class="text-right">
                   <v-btn
                     color="success"
@@ -314,6 +311,7 @@ export default {
         .post("http://localhost:3000/complaints", newComplaint)
 
         .then(() => {
+          swal("Great!", "complaint added successfully", "success"),
           // this.get("/complaints", (req, res) => {
           //   res.render("/");
           // });

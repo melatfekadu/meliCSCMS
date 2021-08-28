@@ -25,13 +25,13 @@
       nav
     >
       <v-list-item>
-        <v-list-item-avatar
+        <!-- <v-list-item-avatar
           class="align-self-center"
           color="white"
           contain
         >
          
-        </v-list-item-avatar>
+        </v-list-item-avatar> -->
 
         <div class="v-list-item__title text-h4">CSCMS</div>
       </v-list-item>
@@ -88,26 +88,7 @@
 
     data: () => ({
       items: [
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'techicial',
-          to: '#',
-        },
-        {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '#',
-        },
-        {
-          title: 'rtables',
-          icon: 'mdi-clipboard-outline',
-          to: '#',
-        },
-        {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '#',
-        },
+       
       ],
     }),
 

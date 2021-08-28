@@ -20,6 +20,22 @@ export default new Router({
       ]
 
     },
+    
+{
+      name: 'AboutUs',
+      path: '/AboutUs',
+      component: () => import('@/views/AboutUs'),
+    },
+    {
+      name: 'ContactUs',
+      path: '/ContactUs',
+      component: () => import('@/views/ContactUs'),
+    },
+    {
+      name: 'Team',
+      path: '/Team',
+      component: () => import('@/views/Team'),
+    },
     {
       path: '/admin',
       component: () => import('@/views/dashboard/Index'),

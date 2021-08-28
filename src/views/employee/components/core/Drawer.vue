@@ -96,26 +96,22 @@
 
     data: () => ({
       items: [
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'admin',
-          to: '/Admin',
-        },
-        {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '/pages/user',
-        },
-        {
-          title: 'rtables',
-          icon: 'mdi-clipboard-outline',
-          to: '/tables/regular-tables',
-        },
-        {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '/components/notifications',
-        },
+        // {
+        //   icon: 'mdi-view-dashboard',
+        //   title: 'admin',
+        //   to: '/Admin',
+        // },
+        // {
+        //   icon: 'mdi-account',
+        //   title: 'user',
+        //   to: '/pages/user',
+        // },
+        // {
+        //   title: 'rtables',
+        //   icon: 'mdi-clipboard-outline',
+        //   to: '/tables/regular-tables',
+        // },
+       
       ],
     }),
 

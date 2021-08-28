@@ -84,11 +84,7 @@
           icon: 'mdi-clipboard-outline',
           to: '#',
         },
-        {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '#',
-        },
+       
       ],
     }),
 

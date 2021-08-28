@@ -25,23 +25,7 @@
       nav
     >
       <v-list-item>
-        <v-list-item-avatar
-          class="align-self-center"
-          color="white"
-          contain
-        >
-          <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-            max-height="30"
-          />
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title
-            class="text-h4"
-            v-text="profile.title"
-          />
-        </v-list-item-content>
+         <div class="v-list-item__title text-h4">CSCMS</div> 
       </v-list-item>
     </v-list>
 
@@ -96,21 +80,21 @@
 
     data: () => ({
       items: [
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'Manager',
-          to: '/Admin',
-        },
-        {
-          title: 'View Rport',
-          icon: 'mdi-clipboard-outline',
-          to: '',
-        },
-        {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '/components/notifications',
-        },
+        // {
+        //   icon: 'mdi-view-dashboard',
+        //   title: 'Manager',
+        //   to: '/Admin',
+        // },
+        // {
+        //   title: 'View Rport',
+        //   icon: 'mdi-clipboard-outline',
+        //   to: '',
+        // },
+        // {
+        //   title: 'notifications',
+        //   icon: 'mdi-bell',
+        //   to: '/components/notifications',
+        // },
       ],
     }),
 

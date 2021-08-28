@@ -1,7 +1,7 @@
 
 <template>
   <v-container class="my-8">
-    <v-card class="mx-auto mp-auto" style="max-width: 400px;">
+    <v-card class="mx-auto mp-auto" style="max-width: 500px;">
       <v-toolbar color="blue(grey)-4" cards dark flat>
         <v-card-title class="text-h6 font-weight-regular">Login</v-card-title>
         <v-spacer></v-spacer>

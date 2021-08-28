@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <dashboard-core-app-bar />
+    >
 
     <v-content> 
       <router-view />

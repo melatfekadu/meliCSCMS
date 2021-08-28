@@ -144,16 +144,12 @@
      
          
         {
-          icon: 'mdi-account',
+          icon: 'mdi-message',
           title: 'Status',
           to: '/status',
         },
     
-        {
-          title: 'Notification',
-          icon: 'mdi-bell',
-          to: '',
-        },
+       
       ],
     }),
 

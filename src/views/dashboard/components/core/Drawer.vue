@@ -97,11 +97,11 @@
           to: '/AddEmployee',
         },
        
-        {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '#',
-        },
+        // {
+        //   title: 'notifications',
+        //   icon: 'mdi-bell',
+        //   to: '#',
+        // },
       ],
     }),
 

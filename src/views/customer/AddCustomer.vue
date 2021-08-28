@@ -95,11 +95,11 @@ export default {
         .post("http://localhost:3000/customers", newCustomer)
 
         .then(() => {
-          this.$swal("Great!", "customer added successfully", "success"),
+         swal("Great!", "customer added successfully", "success"),
             this.get("/customers", (req, res) => {
               res.render("/");
             }).t;
-
+          this.$router.push({path:'/admin'})
           this.$refs.form.reset();
         })
         .catch(err => {

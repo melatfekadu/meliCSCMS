@@ -106,6 +106,7 @@ export default {
         .post("http://localhost:3000/bills", newBill)
        
         .then(() => {
+          swal("Great!", "bill added successfully", "success"),
           this.$router.push({ path: "/Customer_Service" });
           this.$refs.form.reset();
           this.get('/bills', (req,res)=>{ 

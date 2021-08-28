@@ -29,7 +29,7 @@
     />
 
     <v-spacer />
-
+<!-- 
     <v-text-field
       :label="$t('search')"
       color="secondary"
@@ -49,7 +49,7 @@
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
       </template>
-    </v-text-field>
+    </v-text-field> -->
 
     <div class="mx-3" />
 
@@ -106,14 +106,7 @@
       </v-list>
     </v-menu>
 
-    <v-btn
-      class="ml-2"
-      min-width="0"
-      text
-      to="/pages/user"
-    >
-      <v-icon>mdi-account</v-icon>
-    </v-btn>
+    
     <v-btn @click="logout()" class="ml-2" min-width="0" text>
       logout
     

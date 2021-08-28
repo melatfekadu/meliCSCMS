@@ -118,6 +118,7 @@ export default {
         .post("http://localhost:3000/emergencys", newEmergency)
 
         .then(() => {
+          swal("Great!", "Emergency report added successfully", "success"),
           this.$router.push({ path: "/" });
           this.$refs.form.reset();
         })

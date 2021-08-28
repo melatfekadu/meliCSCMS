@@ -7,9 +7,7 @@
         <base-material-card class="px-5 py-3">
           <template v-slot:heading>
             <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
-              <v-tab class="mr-3">
-                Approval Request
-              </v-tab>
+            
               <v-tab class="mr-3" to="Warning">
                 Warning
               </v-tab>
