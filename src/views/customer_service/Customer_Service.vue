@@ -30,16 +30,14 @@
                         font-weight: lighter;
                         margin-bottom: 0;
                       "
-                    >
-                      {{ complaint.user_name }}
-                    </div>
+                    ></div>
                     <small
                       style="
                         font-family: sans-serif;
                         color: #333333;
                         margine-top: 0;
                       "
-                      >Address: {{ complaint.address }}</small
+                      >Address:</small
                     >
                   </v-col>
                   <div

@@ -158,8 +158,6 @@ export default {
         }
       }
 
-      console.log(this.department);
-
       let token = cookies.get("logged_user");
       let newComplaint = {
         token: token,
@@ -168,8 +166,9 @@ export default {
         description: this.description
       };
       // console.log("newCustomer", newCustomer);
+      // console.log(newComplaint);
       axios
-        .post("http://localhost:3000/complaints", newComplaint)
+        .post("http://localhost:3000/complaints/addComplaint", newComplaint)
 
         .then(() => {
           console.log(variables.logged_user),
