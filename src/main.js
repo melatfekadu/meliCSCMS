@@ -9,6 +9,8 @@ import './plugins/chartist'
 import './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
+import VueSession from 'vue-session'
+Vue.use(VueSession)
 Vue.config.productionTip = false
 
 new Vue({

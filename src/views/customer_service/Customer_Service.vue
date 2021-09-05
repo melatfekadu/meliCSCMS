@@ -75,22 +75,22 @@ import * as cookies from "@/cookies";
 import { variables, checkAuth, separateView } from "@/global";
 export default {
   name: "CustomerService",
-  // async created() {
-  //   if (!(await checkAuth())) {
-  //     this.$router.push("/EmpLogin");
-  //   }
+  async created() {
+    if (!(await checkAuth())) {
+      this.$router.push("/Login");
+    }
 
-  //   if (variables.logged_user.type != "employee") {
-  //     this.$router.push("/EmpLogin");
-  //   }
+    if (variables.logged_user.type != "employee") {
+      this.$router.push("/Login");
+    }
 
-  //   if (variables.logged_user.department != "Customer_Service") {
-  //     let link = separateView();
-  //     this.$router.push(link);
-  //   }
+    if (variables.logged_user.department != "Customer_Service") {
+      let link = separateView();
+      this.$router.push(link);
+    }
 
-  //   await this.fetchComplaints();
-  // },
+    await this.fetchComplaints();
+  },
   data() {
     return {
       complaints: [],

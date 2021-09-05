@@ -7,7 +7,7 @@
           <template v-slot:heading>
             <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
               <v-tab class="mr-3">
-                non customer reports
+                Non Customer Reports
               </v-tab>
               
 
@@ -26,8 +26,14 @@
                 <v-col class cols="12">
                   <v-col cols="12">
                     <div
-                      style="font-family: sans-serif; font-size: 20px; font-weight: lighter; margin-bottom: 0;"
+                      style="font-family: sans-serif; font-size: 15px; font-weight: lighter; margin-bottom: 0;"
                     >{{emergency.first_name}} {{emergency.last_name}}</div>
+                  </v-col>
+                    <v-col cols="12">
+                      
+                    <div
+                      style="font-family: sans-serif; font-size: 15px; font-weight: lighter; margin-bottom: 0;"
+                    >{{emergency.select}}</div>
                     <small
                       style="font-family: sans-serif; color: #333333; margine-top: 0;"
                     >Address: {{emergency.location}}</small>
@@ -75,16 +81,14 @@ export default {
         url: "http://localhost:3000/emergencys"
       })
         .then(response => {
+          
           this.emergencys = response.data;
           console.log(this.emergencys);
         })
         .catch(error => {
           console.error(error);
         });
-      axios({
-        method: "put",
-        url: "http://localhost:3000/emergencys"
-      });
+      
     }
   }
 };

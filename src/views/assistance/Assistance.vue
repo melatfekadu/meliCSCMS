@@ -83,11 +83,11 @@ export default {
   name: "Assistance",
     async created() {
     if (!(await checkAuth())) {
-      this.$router.push("/EmpLogin");
+      this.$router.push("/Login");
     }
 
     if (variables.logged_user.type != "employee") {
-      this.$router.push("/EmpLogin");
+      this.$router.push("/Login");
     }
 
     if (variables.logged_user.department != "Assistance") {

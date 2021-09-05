@@ -9,24 +9,30 @@
               <v-tab class="mr-3">
                 Complaints
               </v-tab>
-              
+              <v-tab class="mr-3" to='/NonCustomerReport'>
+                Non Customer Reports
+              </v-tab>
             </v-tabs>
           </template>
+            <v-tabs-items v-model="tabs" class="transparent">
+            
+           
+           </v-tabs-items>
 
           <v-tabs-items v-model="tabs" class="transparent">
             <v-list v-for="(complaint, index) in complaints" :key="index">
               <v-list-item>
                 <v-col cols="1">
-                  <v-list-item-action>
-                    <v-checkbox v-model="tasks.value" color="secondary" />
-                  </v-list-item-action>
+                  <v-list v-for="(customer, index) in customers" :key="index"></v-list>
                 </v-col>
-                <v-col class cols="12">
-                  <v-col cols="12">
-                    <div
-                      style="font-family: sans-serif; font-size: 15px; font-weight: lighter; margin-bottom: 0;"
-                    >User_name: {{complaint.user_name}}</div>
-                  </v-col>
+                 <v-col class cols="12">
+                    <v-col cols="12">
+                      <div
+                        style="font-family: sans-serif; font-size: 15px; font-weight: lighter; margin-bottom: 0;"
+                      >Name : {{customer.first_name}}  {{customer.last_name}}</div>
+                    </v-col>
+                 </v-col>
+                    <v-col class cols="12">
                     <v-col cols="12">
                     <div
                       style="font-family: sans-serif; font-size: 15px; font-weight: lighter; margin-bottom: 0;"
@@ -38,13 +44,17 @@
                   </v-col>
                   <v-col cols="12">
                     {{smallPart(complaint.description)}}
-                    <router-link :to="'subComplaint/'+complaint._id">read more</router-link>
+                    <router-link :to="'subComplaint/'+complaint._id+customer._id">read more</router-link>
                   </v-col>
                   <v-col cols="12">Date: {{complaint.date}}</v-col>
                 </v-col>
+                
               </v-list-item>
             </v-list>
+            
           </v-tabs-items>
+          
+          
         </base-material-card>
       </v-col>
     </v-row>
@@ -59,11 +69,11 @@ export default {
   name: "Operation_Maintenance",
   async created() {
     if (!(await checkAuth())) {
-      this.$router.push("/EmpLogin");
+      this.$router.push("/Login");
     }
 
     if (variables.logged_user.type != "employee") {
-      this.$router.push("/EmpLogin");
+      this.$router.push("/Login");
     }
 
     if (variables.logged_user.department != "Operation_Maintenance") {
@@ -76,6 +86,8 @@ export default {
   data() {
     return {
       complaints: [],
+      customers:[],
+
 
       items: [],
 
@@ -90,6 +102,8 @@ export default {
   // },
   mounted() {
     this.fetchComplaints();
+    this.fetchCustomers();
+    this.fetchEmergencys();
   },
   methods: {
      
@@ -109,11 +123,40 @@ export default {
         .catch(error => {
           console.error(error);
         });
+      
+    },
+     async fetchCustomers() {
+      axios({
+        method: "get",
+        url: "http://localhost:3000/customers"
+      })
+        .then(response => {
+          this.customers = response.data;
+          console.log(this.customers);
+          console.log("success")
+        })
+        .catch(error => {
+          console.error(error);
+        });
+      
+    },
+    async fetchEmergencys() {
+      axios({
+        method: "get",
+        url: "http://localhost:3000/emergencys"
+      })
+        .then(response => {
+          this.emergencys = response.data;
+          console.log(this.emergencys);
+        })
+        .catch(error => {
+          console.error(error);
+        });
       axios({
         method: "put",
-        url: "http://localhost:3000/complaints"
+        url: "http://localhost:3000/emergencys"
       });
-    },
+    }
     
   }
 };

@@ -1,75 +1,36 @@
 <template>
-  <v-footer
-    id="dashboard-core-footer"
-  >
-    <v-container>
-      <v-row
-        align="center"
-        no-gutters
-      >
-        <v-col
-          v-for="(link, i) in links"
-          :key="i"
-          class="text-center mb-sm-0 mb-5"
-          cols="auto"
+  <v-container>
+    <v-footer flat>
+      <v-row justify="center" no-gutters>
+        <v-btn
+          router
+          :to="link.route"
+          v-for="link in links"
+          :key="link.text"
+          text
+          rounded
+          class="my-2"
         >
-          <a
-            :href="link.href"
-            class="mr-0 grey--text text--darken-3"
-            rel="noopener"
-            target="_blank"
-            v-text="link.text"
-          />
-        </v-col>
-
-        <v-spacer class="hidden-sm-and-down" />
-
-        <v-col
-          cols="12"
-          md="auto"
-        >
-          <div class="text-body-1 font-weight-light pt-6 pt-md-0 text-center">
-            &copy; 2021, Developed By Meron,Melat,Biniam,Kalkidan and Mekides ->
-            CSCMS System for EEU,ADAMA
-          </div>
+          {{ link.text }}
+        </v-btn>
+        <v-col class="flat py-4 text-center " cols="12">
+          {{ new Date().getFullYear() }} — <strong>CSCMS</strong>
         </v-col>
       </v-row>
-    </v-container>
-  </v-footer>
+    </v-footer>
+  </v-container>
 </template>
-
 <script>
-  export default {
-    name: 'DashboardCoreFooter',
+export default {
+  name: "Footer",
 
-    data: () => ({
-      links: [
-        {
-          href: '#',
-          text: 'Home',
-        },
-        {
-          href: '#',
-          text: 'About Us',
-        },
-        {
-          href: '#',
-          text: 'Blog',
-        },
-        {
-          href: '#',
-          text: 'Licenses',
-        },
-      ],
-    }),
-  }
+  data: () => ({
+    links: [
+      { text: "Home", route: "/" },
+      { text: "About Us", route: "/AboutUs" },
+      { text: "Team", route: "/Team" },
+      { text: "Contact Us", route: "/ContactUs" }
+    ]
+  })
+};
 </script>
-
-<style lang="sass">
-  #dashboard-core-footer
-    a
-      font-size: .825rem
-      font-weight: 500
-      text-decoration: none
-      text-transform: uppercase
-</style>

@@ -1,3 +1,4 @@
+mery, [27.08.21 05:54]
 <template>
   <v-content>
     <v-toolbar flat>
@@ -18,13 +19,9 @@
         <!-- </router-link> -->
         <!-- <router-link to="/Login" tag="v-btn"> -->
         <v-btn text name="login" to="/Login">
-          Customer Login
+          Login
         </v-btn>
         <!-- </router-link> -->
-        <!-- <router-link to="/EmpLogin" tag="v-btn"> -->
-        <v-btn text name="login" to="/EmpLogin">
-          Employee Login
-        </v-btn>
         <!-- </router-link> -->
       </v-toolbar-items>
     </v-toolbar>

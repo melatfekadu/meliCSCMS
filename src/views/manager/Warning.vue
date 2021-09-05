@@ -1,23 +1,15 @@
 <template>
-  <v-container
-    id="user-profile"
-    fluid
-    tag="section"
-  >
-  <!-- <WarningAppBar />
+  <v-container id="user-profile" fluid tag="section">
+    <!-- <WarningAppBar />
   <WarningDrawer />
   <WarningView />
   <WarningSettings /> -->
     <v-row justify="center">
-      
-      <v-col
-        cols="12"
-        md="8"
-      >
+      <v-col cols="12" md="8">
         <base-material-card>
           <template v-slot:heading>
             <div class="text-h3 font-weight-light">
-              send warning 
+              send warning
             </div>
           </template>
 
@@ -29,9 +21,11 @@
                     v-model="emp_id"
                     label="Employee Id"
                     class="purple-input"
+                    type="number"
+                    :rules="[v => !!v || 'Empoyee ID is required']"
                   />
                 </v-col>
-                
+
                 <v-col cols="6">
                   <v-text-field
                     v-model="date"
@@ -41,37 +35,43 @@
                   />
                 </v-col>
                 <v-select
-                    v-model="caseWorker"
-                    :items="['New Connection', 'Reload', 'Billing', 'Emergency','Complaint On Employee']"
-                    label="Department"
-                  >
-                    <template v-slot:item="{ item, attrs, on }">
-                      <v-list-item v-bind="attrs" v-on="on">
-                        <v-list-item-title :id="attrs['aria-labelledby']" v-text="item"></v-list-item-title>
-                      </v-list-item>
-                    </template>
-                  </v-select>
-
-                <v-col 
-                cols="50"
-                md="11"
+                  v-model="caseWorker"
+                  :items="[
+                    'New Connection',
+                    'Reload',
+                    'Billing',
+                    'Emergency',
+                    'Complaint On Employee'
+                  ]"
+                  label="Department"
+                  :rules="[v => !!v || 'Departement  is required']"
                 >
+                  <template v-slot:item="{ item, attrs, on }">
+                    <v-list-item v-bind="attrs" v-on="on">
+                      <v-list-item-title
+                        :id="attrs['aria-labelledby']"
+                        v-text="item"
+                      ></v-list-item-title>
+                    </v-list-item>
+                  </template>
+                </v-select>
+
+                <v-col cols="50" md="11">
                   <v-textarea
                     v-model="description"
                     class="purple-input"
                     label="massages"
                     value=""
+                    :rules="[v => !!v || 'Message is required  is required']"
                   />
                 </v-col>
-                
-                <v-col
-                  cols="12"
-                  class="text-right"
-                >
+
+                <v-col cols="12" class="text-right">
                   <v-btn
                     color="success"
                     class="mr-0"
-                    @click="sendWarning" :disabled="!valid"
+                    @click="sendWarning"
+                    :disabled="!valid"
                   >
                     Send Warning
                   </v-btn>
@@ -107,23 +107,22 @@ export default {
         // // { icon: 'recent_actors', text: 'View Users Account', route: '/view_accounts'},
       ],
       valid: true,
-      emp_id:"",
-      date:"",
+      emp_id: "",
+      date: "",
       description: "",
-      type: "",
-     
+      type: ""
     };
   },
   methods: {
-  sendWarning() {
+    sendWarning() {
       //if (this.$refs.form.validate()) {
       let newWarning = {
         emp_id: this.emp_id,
         date: this.date,
         description: this.description,
-        caseWorker:this.caseWorker,
-         };
-     
+        caseWorker: this.caseWorker
+      };
+
       // console.log("newCustomer", newCustomer);
       axios
         .post("http://localhost:3000/warnings", newWarning)
@@ -138,18 +137,18 @@ export default {
         //       },
         //     })
         .then(() => {
-          this.get('/warnings', (req,res)=>{
-            res.render('/')
-          })
+          this.get("/warnings", (req, res) => {
+            res.render("/");
+          });
           // this.$router.push({ path: "/" });
           this.$refs.form.reset();
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
       //} // VALIDATION END
       return true;
-    },
-  },
+    }
+  }
 };
 </script>

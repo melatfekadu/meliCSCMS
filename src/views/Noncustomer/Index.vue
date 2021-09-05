@@ -1,11 +1,13 @@
 <template>
   <v-app>
-    <!-- <dashboard-core-app-bar /> -->
+    >
 
-    <v-content>
+    <v-content> 
       <router-view />
       <DashboardCoreFooter />
     </v-content>
+
+    
   </v-app>
 </template>
 
@@ -14,7 +16,7 @@ export default {
   name: "NoncustomerIndex",
 
   components: {
-    // DashboardCoreAppBar: () => import("./components/core/AppBar"),
+    DashboardCoreAppBar: () => import("./components/core/AppBar"),
 
     DashboardCoreSettings: () => import("./components/core/Settings"),
     DashboardCoreView: () => import("./components/core/View"),

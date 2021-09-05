@@ -20,7 +20,8 @@ export default new Router({
       ]
 
     },
-    {
+    
+{
       name: 'AboutUs',
       path: '/AboutUs',
       component: () => import('@/views/AboutUs'),
@@ -177,7 +178,7 @@ export default new Router({
         },
         {
           name: 'ongoing',
-          path: '/going',
+          path: '/ongoing',
           component: () => import('@/views/manager/ongoing'),
         },
         {
@@ -202,11 +203,7 @@ export default new Router({
           path: '/',
           component: () => import('@/views/assistance/Assistance'),
         },
-        {
-          name: 'NonCustomerReport',
-          path: '/NonCustomerReport',
-          component: () => import('@/views/assistance/NonCustomerReport'),
-        },
+        
 
       ]
     },
@@ -249,10 +246,10 @@ export default new Router({
           component: () => import('@/views/case_worker/warning/Warnings'),
         },
         {
-          name: 'SendReport',
-          path: '/SendRepo',
-        component: () => import('@/views/Operation_Maintenance/SendReport'),
-          },
+          name: 'NonCustomerReport',
+          path: '/NonCustomerReport',
+          component: () => import('@/views/Operation_Maintenance/NonCustomerReport'),
+        },
       ]
     },
     {
@@ -339,26 +336,20 @@ export default new Router({
 
           // component: () => import('@/views/Operation_Maintenance/N'),
         },
-        {
-          name: 'CaseWorker',
-          path: '/SendRe',
-          component: () => import('@/views/case_worker/SendReport'),
-
-          // component: () => import('@/views/Operation_Maintenance/N'),
-        },
+        
       ]
-
+      
     },
     {
       name: 'Login',
       path: '/Login',
       component: () => import('@/views/login/Login'),
     },
-    {
-      name: 'EmpLogin',
-      path: '/EmpLogin',
-      component: () => import('@/views/login/EmpLogin'),
-    },
+    // {
+    //   name: 'EmpLogin',
+    //   path: '/EmpLogin',
+    //   component: () => import('@/views/login/EmpLogin'),
+    // },
 
   ],
 })

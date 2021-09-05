@@ -13,22 +13,11 @@
 
     <v-spacer />
 
-    <v-text-field
-      :label="$t('search')"
-      color="secondary"
-      hide-details
-      style="max-width: 165px"
-    >
-      <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:append-outer>
-        <v-btn class="mt-n2" elevation="1" fab small>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-      </template>
-    </v-text-field>
+   
 
     <div class="mx-3" />
 
-    <v-btn class="ml-2" min-width="0" text to="/">
+    <v-btn class="ml-2" min-width="0" text to="/Customer_Service">
       <v-icon>mdi-view-dashboard</v-icon>
     </v-btn>
 
@@ -60,9 +49,7 @@
       </v-list>
     </v-menu>
 
-    <v-btn class="ml-2" min-width="0" text to="/pages/user">
-      <v-icon>mdi-account</v-icon>
-    </v-btn>
+    
     <v-btn @click="logout()" class="ml-2" min-width="0" text>
       logout
       <v-icon>mdi-logout</v-icon>
@@ -95,67 +82,84 @@ export default {
                   attrs: this.$attrs,
                   class: {
                     "black--text": !hover,
-                    "white--text secondary elevation-12": hover
+                    "white--text secondary elevation-12": hover,
                   },
                   props: {
                     activeClass: "",
                     dark: hover,
                     link: true,
-                    ...this.$attrs
-                  }
+                    ...this.$attrs,
+                  },
                 },
                 this.$slots.default
               );
-            }
-          }
+            },
+          },
         });
-      }
-    }
+      },
+    },
   },
 
   props: {
     value: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   data: () => ({
-    notifications: ["You got new complaint."],
-    notification_size: 0
+    
+    notifications: [
+      "You got new complaint."
+    ],
+    notification_size: 0,
   }),
 
   computed: {
-    ...mapState(["drawer"])
+    ...mapState(["drawer"]),
   },
 
-  created() {
+  created(){
     this.notification_mtd();
   },
 
   methods: {
-    async notification_mtd() {
-      await axios.get("http://localhost:3000/complaints2").then(response => {
-        //console.log(response.data);
-        this.notification_size = response.data.length;
-        let count = 0;
+    async notification_mtd(){
+      await axios
+        .get("http://localhost:3000/complaints2")
+        .then((response) => {
+          //console.log(response.data);
+          this.notification_size = response.data.length;
+          let count = 0;
 
-        for (let i = 0; i < this.notification_size; i++) {
-          this.notifications[count] = response.data[i].select;
-          count += 1;
-        }
+          // if(this.notification_size > 3){
+          //   for(let i = this.notification_size; i > this.notification_size - 3; i--){
+          //     this.notifications[count] = response.data[i].select;
+          //     count += 1;
+          //   }
+          // }else{
+          //   for(let i = 0; i > this.notification_size; i++){
+          //     this.notifications[count] = response.data[i].select;
+          //     count += 1;
+          //   }
+          // }
 
-        console.log(this.notifications);
+          for(let i = 0; i < this.notification_size; i++){
+              this.notifications[count] = response.data[i].select;
+              count += 1;
+            }
 
-        //console.log(response.data);
-      });
+          console.log(this.notifications);
+          
+          //console.log(response.data);
+        });      
     },
     async logout() {
       let token = cookies.get("logged_user");
 
       await axios
         .post("http://localhost:3000/logout", { token: token })
-        .then(response => {
+        .then((response) => {
           if (!response.data.header.error) {
             cookies.remove("logged_user");
             //variables.logged_user = {};
@@ -165,8 +169,8 @@ export default {
         });
     },
     ...mapMutations({
-      setDrawer: "SET_DRAWER"
-    })
-  }
+      setDrawer: "SET_DRAWER",
+    }),
+  },
 };
 </script>

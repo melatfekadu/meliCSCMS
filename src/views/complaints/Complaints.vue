@@ -17,7 +17,7 @@
         <v-list-item>
           <v-select
             v-model="select"
-            :items="['CustomerService', 'OperationMaintenance', 'Manager']"
+            :items="['CustomerService', 'OperationMaintenance']"
             label="Department"
           >
             <template v-slot:item="{ item, attrs, on }">

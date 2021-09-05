@@ -1,17 +1,18 @@
 <template>
   <v-container id="assistance" fluid tag="section">
+    
+        
     <v-row>
       <v-col cols="12" md="11">
         <base-material-card class="px-5 py-3">
           <template v-slot:heading>
-            <v-tabs
-              v-model="tabs"
-              background-color="transparent"
-              slider-color="white"
-            >
+            <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
+              
+              
               <v-tab class="mr-3">
-                Ongoing Complaint
+             On Going Complaint
               </v-tab>
+              
             </v-tabs>
           </template>
 
@@ -27,21 +28,16 @@
                   <v-col cols="12">
                     <div
                       style="font-family: sans-serif; font-size: 20px; font-weight: lighter; margin-bottom: 0;"
-                    >
-                      {{ complaint.user_name }}
-                    </div>
+                    >{{complaint.user_name}}</div>
                     <small
                       style="font-family: sans-serif; color: #333333; margine-top: 0;"
-                      >Address: {{ complaint.address }}</small
-                    >
+                    >Address: {{complaint.address}}</small>
                   </v-col>
                   <v-col cols="12">
-                    {{ smallPart(complaint.description) }}
-                    <router-link :to="'Complaints/' + complaint._id"
-                      >read more</router-link
-                    >
+                    {{smallPart(complaint.description)}}
+                    <router-link :to="'Complaints/'+complaint._id">read more</router-link>
                   </v-col>
-                  <v-col cols="12">Date: {{ complaint.date }}</v-col>
+                  <v-col cols="12">Date: {{complaint.date}}</v-col>
                 </v-col>
               </v-list-item>
             </v-list>
@@ -56,7 +52,7 @@
 import axios from "axios";
 export default {
   name: "onging",
-
+  
   data() {
     return {
       complaints: [],
@@ -67,10 +63,10 @@ export default {
       tasks: []
     };
   },
-  computed: {
-    ongoing() {
-      return this.complaints.filter(comp => comp.status == "accept");
-    }
+  computed:{
+    ongoing(){
+    return this.complaints.filter(comp=>comp.status=="accept")
+   }
   },
   mounted() {
     this.fetchComplaints();

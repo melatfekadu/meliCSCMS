@@ -47,12 +47,6 @@
       </v-list>
     </v-menu>
 
-<<<<<<< HEAD
-=======
-    <v-btn class="ml-2" min-width="0" text >
-      <v-icon>mdi-account</v-icon>
-    </v-btn>
->>>>>>> main
     <v-btn @click="logout()" class="ml-2" min-width="0" text>
       logout
       <v-icon>mdi-logout</v-icon>
@@ -134,7 +128,7 @@ export default {
           if (!response.data.header.error) {
             cookies.remove("logged_user");
             variables.logged_user = {};
-            this.$router.push("/EmpLogin");
+            this.$router.push("/Login");
           }
         });
     },

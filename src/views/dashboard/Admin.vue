@@ -61,21 +61,20 @@ import * as cookies from "@/cookies";
 import { variables, checkAuth, separateView } from "@/global";
 export default {
   name: "Admin",
-  // async created() {
-  //   if (!(await checkAuth())) {
-  //     this.$router.push("/EmpLogin");
-  //   }
+  async created() {
+    if (!(await checkAuth())) {
+      this.$router.push("/Login");
+    }
 
-  //   if (variables.logged_user.type != "employee") {
-  //     this.$router.push("/EmpLogin");
-  //   }
+    if (variables.logged_user.type != "employee") {
+      this.$router.push("/Login");
+    }
 
-  //   if (variables.logged_user.department != "admin") {
-  //     let link = separateView();
-  //     this.$router.push(link);
-  //   }
-
-  // },
+    if (variables.logged_user.department != "admin") {
+      let link = separateView();
+      this.$router.push(link);
+    }
+  },
   data() {
     return {
       customers: [],
@@ -93,7 +92,7 @@ export default {
         password: ""
       },
       customer_headers: [
-        { text: "Id", value: "_id" },
+        { text: "Bp_Number", value: "bp_number" },
         { text: "First Name", value: "first_name" },
         { text: "Last Name", value: "last_name" },
         { text: "Email", value: "email" },
@@ -105,7 +104,6 @@ export default {
         { text: "Action", value: "actions", sortable: false }
       ],
       employee_headers: [
-        { text: "Id", value: "_id" },
         { text: "Employee Id", value: "emp_id" },
         { text: "First Name", value: "first_name" },
         { text: "Last Name", value: "last_name" },
@@ -148,7 +146,7 @@ export default {
           if (!response.data.header.error) {
             cookies.remove("logged_user");
             variables.logged_user = {};
-            this.$router.push("/EmpLogin");
+            this.$router.push("/Login");
           }
         });
     },
