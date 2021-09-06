@@ -142,7 +142,7 @@ export default {
         "Operation_Maintenance",
         "Customer_Service",
         "caseworker",
-        "System Admin"
+        "Admin"
       ],
       user_name: "",
       // idRules: [

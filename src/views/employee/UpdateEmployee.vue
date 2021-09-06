@@ -80,14 +80,15 @@
                 </v-col>
                 <!-- <v-col cols="12" md="4">
                   <v-text-field
-                    v-model="branch"
+                    v-model="branch"tems3
                     label="Branch"
                     class="purple-input"
                   />
                 </v-col> -->
                 <v-col cols="12" md="4">
-                  <v-text-field
+                  <v-select
                     v-model="department"
+                    :items="items3"
                     label="Department"
                     class="purple-input"
                     :rules="[v => !!v || 'Departement is required']"
@@ -165,7 +166,15 @@ export default {
       gender: null,
       items2: ["Female", "Male"],
       branch: "",
-      department: "",
+      department: null,
+      items3: [
+        "manager",
+        "Operation_Maintenance",
+        "Customer_Service",
+        "caseworker",
+        "Admin"
+      ],
+
       user_name: "",
       // idRules: [
       //   v => !!v || 'ID is required',

@@ -16,11 +16,7 @@
           <v-tabs-items v-model="tabs" class="transparent">
             <v-list v-for="(complaint, index) in complaints" :key="index">
               <v-list-item>
-                <v-col cols="1">
-                  <v-list-item-action>
-                    <v-checkbox v-model="tasks.value" color="secondary" />
-                  </v-list-item-action>
-                </v-col>
+                <v-col cols="1"> </v-col>
                 <v-col class cols="12">
                   <v-col cols="12">
                     <div
@@ -31,15 +27,54 @@
                         margin-bottom: 0;
                       "
                     ></div>
-                    <small
-                      style="
-                        font-family: sans-serif;
-                        color: #333333;
-                        margine-top: 0;
-                      "
-                      >Address:</small
-                    >
                   </v-col>
+                  <div
+                    style="
+                        font-family: sans-serif;
+                        font-size: 15px;
+                        font-weight: lighter;
+                        margin-bottom: 0;
+                      "
+                  >
+                    Name:
+                    {{ cust[complaint.bp_number]["first_name"] }}&nbsp;{{
+                      cust[complaint.bp_number]["last_name"]
+                    }}
+                  </div>
+                  <div
+                    style="
+                        font-family: sans-serif;
+                        font-size: 15px;
+                        font-weight: lighter;
+                        margin-bottom: 0;
+                      "
+                  >
+                    PhoneNumber:
+                    {{ cust[complaint.bp_number]["phone_no"] }}
+                  </div>
+                  <div
+                    style="
+                        font-family: sans-serif;
+                        font-size: 15px;
+                        font-weight: lighter;
+                        margin-bottom: 0;
+                      "
+                  >
+                    Email:
+                    {{ cust[complaint.bp_number]["email"] }}
+                  </div>
+                  <div
+                    style="
+                        font-family: sans-serif;
+                        font-size: 15px;
+                        font-weight: lighter;
+                        margin-bottom: 0;
+                      "
+                  >
+                    Address:
+                    {{ cust[complaint.bp_number]["address"] }}
+                  </div>
+
                   <div
                     style="
                         font-family: sans-serif;
@@ -53,7 +88,7 @@
                   <v-col cols="12">
                     {{ smallPart(complaint.description) }}
                     <router-link :to="'subComplaint/' + complaint._id"
-                      >read more</router-link
+                      >Assign Case Worker</router-link
                     >
                   </v-col>
                   <v-col cols="12">Date: {{ complaint.date }}</v-col>
@@ -92,8 +127,9 @@ export default {
   data() {
     return {
       complaints: [],
-
+      customers: [],
       items: [],
+      cust: {},
 
       tabs: 0,
       tasks: []
@@ -101,17 +137,40 @@ export default {
   },
 
   mounted() {
+    this.fetchCustomers();
     this.fetchComplaints();
   },
   methods: {
+    async fetchCustomers() {
+      axios({
+        method: "get",
+        url: "http://localhost:3000/customers"
+      })
+        .then(response => {
+          this.customers = response.data;
+          response.data.forEach(element => {
+            // console.log(element["bp_number"]);
+            this.cust[element["bp_number"]] = element;
+          });
+          console.log(this.customers);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
     async fetchComplaints() {
       axios({
         method: "get",
         url: "http://localhost:3000/complaints2"
       })
         .then(response => {
-          this.complaints = response.data;
-          console.log(this.complaints);
+          // this.complaints = response.data;
+          console.log(response.data);
+          response.data.forEach(element => {
+            if (element["status"] == "pending") {
+              this.complaints.push(element);
+            }
+          });
         })
         .catch(error => {
           console.error(error);
